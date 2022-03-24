@@ -10,6 +10,8 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
+import { LoginComponent } from './login/login.component';
+import { ViewLogComponent } from './view-log/view-log.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RulesComponent } from './rules/rules.component';
     AppLayoutComponent,
     AccountsComponent,
     ProfileComponent,
-    RulesComponent
+    RulesComponent,
+    LoginComponent,
+    ViewLogComponent
   ],
   imports: [
     BrowserModule,
