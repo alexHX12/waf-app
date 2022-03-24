@@ -1,1 +1,1 @@
-docker run -p 80:80 -p 443:443 -p 8080:8080 -v C:\Users\alex\Desktop\vol:/vol -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/test.log test npm start --prefix /waf-app
+docker run -p 80:80 -p 443:443 -p 8080:8080 -v "C:\Users\alex\Desktop\WAF Project\vol:/vol" -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/test.log test
