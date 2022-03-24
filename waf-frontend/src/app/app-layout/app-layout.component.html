@@ -1,0 +1,31 @@
+<c-sidebar visible id="sidebar">
+    <c-sidebar-brand>WAF Admin Panel</c-sidebar-brand>
+    <div id="userInfo">
+      <p><svg [cIcon]="iconSet.icons['cilUser']" size="xl" title="List Icon"></svg>Test User</p>
+    </div>
+    <c-sidebar-nav [navItems]="navItems"></c-sidebar-nav>
+  </c-sidebar>
+  <div class="wrapper">
+    <c-header>
+      <c-container [fluid]="true">
+        <c-header-nav class="d-none d-lg-flex me-auto">
+          <c-nav-item>
+            <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
+              <svg [cIcon]="iconSet.icons['cilMenu']" size="lg" title="Menu' Icon"></svg>
+            </button>
+          </c-nav-item>
+          <c-nav-item>
+            <a [routerLink] cNavLink>Home</a>
+          </c-nav-item>
+          <c-nav-item id="h-warning">
+            <p>Attenzione alle modifiche apportate!</p>
+          </c-nav-item>
+        </c-header-nav>
+      </c-container>
+    </c-header>
+    <div>
+      <c-container breakpoint="lg">
+        <router-outlet></router-outlet>
+      </c-container>
+    </div>
+  </div>

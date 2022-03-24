@@ -1,0 +1,26 @@
+#h-warning{
+    position: absolute;
+    margin-top: 0.5vw;
+    right: 2vw;
+}
+
+#userInfo{
+    padding: 1vw;
+    background-color: darkgreen;
+    border-top: 0.5px solid gray;
+    border-bottom: 0.5px solid gray;
+}
+
+#userInfo svg{
+    margin-right: 0.3vw;
+}
+
+#userInfo p{
+    text-align: center;
+    margin: 0px;
+    font-size: 1.5vw;
+}
+
+.wrapper {
+    padding-left: var(--cui-sidebar-occupy-start);
+  }

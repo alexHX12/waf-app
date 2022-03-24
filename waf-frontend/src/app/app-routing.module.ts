@@ -1,10 +1,45 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountsComponent } from './accounts/accounts.component';
+import { AppLayoutComponent } from './app-layout/app-layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RulesComponent } from './rules/rules.component';
 
-const routes: Routes = [];
+const routes:Routes=[
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: AppLayoutComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component:DashboardComponent
+      },
+      {
+        path:'rules',
+        component:RulesComponent
+      },
+      {
+        path:'accounts',
+        component:AccountsComponent
+      },
+      {
+        path:'profile',
+        component:ProfileComponent
+      }
+    ]
+  },
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule { 
+}
