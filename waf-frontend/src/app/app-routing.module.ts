@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
 import { ViewLogComponent } from './view-log/view-log.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes:Routes=[
   {
@@ -20,11 +21,13 @@ const routes:Routes=[
     children: [
       {
         path: 'dashboard',
-        component:DashboardComponent
+        component:DashboardComponent,
+        canActivate: [AuthGuard]
       },
       {
         path:'rules',
-        component:RulesComponent
+        component:RulesComponent,
+        canActivate: [AuthGuard]
       },
       {
         path:'viewlog',
@@ -32,11 +35,13 @@ const routes:Routes=[
       },
       {
         path:'accounts',
-        component:AccountsComponent
+        component:AccountsComponent,
+        canActivate: [AuthGuard]
       },
       {
         path:'profile',
-        component:ProfileComponent
+        component:ProfileComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },

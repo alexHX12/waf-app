@@ -1,8 +1,9 @@
 <c-sidebar visible id="sidebar">
     <c-sidebar-brand>WAF Admin Control Panel</c-sidebar-brand>
     <div id="userInfo">
-      <p><c-icon name="cilUser" size="xl"></c-icon>Test User</p>
+      <p><c-icon name="cilUser" size="xl"></c-icon><ng-container *ngIf="auth.user$ | async as user">{{user.name}}</ng-container></p>
     </div>
+    <button (click)="auth.logout({ returnTo: 'http://localhost:4200/login' })">Log out</button>
     <c-sidebar-nav [navItems]="navItems"></c-sidebar-nav>
   </c-sidebar>
   <div class="wrapper">

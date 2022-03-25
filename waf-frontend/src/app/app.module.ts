@@ -12,6 +12,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
 import { LoginComponent } from './login/login.component';
 import { ViewLogComponent } from './view-log/view-log.component';
+// Import the module from the SDK
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,12 @@ import { ViewLogComponent } from './view-log/view-log.component';
     GridModule,
     HeaderModule,
     NavModule,
-    DropdownModule
+    DropdownModule,
+    // Import the module into the application, with configuration
+    AuthModule.forRoot({
+      domain: 'dev-fmeenf3n.us.auth0.com',
+      clientId: 'PQuVo6cmELKpqSWA8FhuQinoREXfufWU'
+    }),
   ],
   providers: [IconSetService],
   bootstrap: [AppComponent]

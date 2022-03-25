@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { INavData } from '@coreui/angular';
 import { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-app-layout',
@@ -37,15 +38,10 @@ export class AppLayoutComponent {
       name: 'Gestisci profilo',
       url: '/profile',
       iconComponent: { name: 'cil-user' }
-    },
-    {
-      name: 'Logout',
-      url: '/login',
-      iconComponent: { name: 'cil-account-logout' }
-    },
+    }
   ]
 
-  constructor(public iconSet: IconSetService) {
+  constructor(public iconSet: IconSetService,public auth: AuthService) {
     // iconSet singleton
     iconSet.icons = { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire };
   }
