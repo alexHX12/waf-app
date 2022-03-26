@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule} from '@coreui/angular';
+import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule,TableModule} from '@coreui/angular';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
@@ -41,6 +41,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     HeaderModule,
     NavModule,
     DropdownModule,
+    TableModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-fmeenf3n.us.auth0.com',
