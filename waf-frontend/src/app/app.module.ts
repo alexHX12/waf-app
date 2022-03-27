@@ -10,7 +10,6 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
-import { LoginComponent } from './login/login.component';
 import { ViewLogComponent } from './view-log/view-log.component';
 // Import the module from the SDK
 import { AuthModule } from '@auth0/auth0-angular';
@@ -28,7 +27,6 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     AccountsComponent,
     ProfileComponent,
     RulesComponent,
-    LoginComponent,
     ViewLogComponent
   ],
   imports: [
