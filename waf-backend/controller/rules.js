@@ -4,9 +4,11 @@ const fs = require('fs');
 module.exports = {
   getRules: function (req, res, next) {
     fs.readdir("/etc/modsecurity.d/owasp-crs/rules/", function (err, files) {
-      const confFiles = files.filter(el => path.extname(el) === '.conf');
+      var ruleSetRes={};
+      ruleSetRes.ruleSetName="OWASP Core Rule Set (CRS)"
+      ruleSetRes.confFiles = files.filter(el => path.extname(el) === '.conf');
       res.contentType('application/json');
-      res.send(JSON.stringify(confFiles));
+      res.send(JSON.stringify(ruleSetRes));
     })
   }
 }

@@ -1,1 +1,40 @@
-<p>rules works!</p>
+<h2>Rule Set</h2>
+<table cTable>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Rule Set Name</th>
+            <th scope="col">Conf files</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <ng-container *ngIf="ruleSet!=undefined">
+                <td>{{ruleSet.ruleSetName}}</td>
+                <div class="rs_div">
+                    <ng-container *ngFor="let r of ruleSet.confFiles">
+                        {{r}}<br>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </tr>
+    </tbody>
+</table>
+<h2>Custom Rules</h2>
+<table cTable>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Rule Name</th>
+            <th scope="col">Rule</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Test</td>
+            <td>Block IP</td>
+        </tr>
+    </tbody>
+</table>

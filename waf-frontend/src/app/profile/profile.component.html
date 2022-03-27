@@ -1,1 +1,4 @@
-<p>profile works!</p>
+<ng-container *ngIf="auth.user$ | async as user">
+    <p>Nome:{{user.name}}</p>
+    <p>Email:{{user.email}}</p>
+</ng-container>
