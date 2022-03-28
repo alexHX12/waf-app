@@ -1,26 +1,31 @@
-<table cTable>
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Socket container</th>
-            <th scope="col">Socket client</th>
-            <th scope="col">Data e ora</th>
-            <th scope="col">Minaccia rilevata</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let log of logData;let i=index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{log.transaction.local_address+":"+log.transaction.local_port}}</td>
-            <td>{{log.transaction.remote_address+":"+log.transaction.remote_port}}</td>
-            <td>{{log.transaction.time}}</td>
-            <td>
-                <div class="m_div">
-                    <ng-container *ngFor="let m of log.audit_data.messages">
-                        {{m}}
-                    </ng-container>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<c-card>
+    <c-card-header>Log</c-card-header>
+    <c-card-body>
+        <table cTable>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Socket container</th>
+                    <th scope="col">Socket client</th>
+                    <th scope="col">Data e ora</th>
+                    <th scope="col">Minaccia rilevata</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logData;let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{log.transaction.local_address+":"+log.transaction.local_port}}</td>
+                    <td>{{log.transaction.remote_address+":"+log.transaction.remote_port}}</td>
+                    <td>Data:{{log.transaction.time[0]}}<br>Ora:{{log.transaction.time[1]}}</td>
+                    <td id="m_td">
+                        <div class="m_div">
+                            <p *ngFor="let m of log.audit_data.messages">
+                                {{m}}
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </c-card-body>
+</c-card>

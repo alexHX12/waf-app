@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule,TableModule} from '@coreui/angular';
+import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule,TableModule,CardModule} from '@coreui/angular';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
@@ -18,6 +18,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { ViewContainerComponent } from './view-container/view-container.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     AccountsComponent,
     ProfileComponent,
     RulesComponent,
-    ViewLogComponent
+    ViewLogComponent,
+    ViewContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     NavModule,
     DropdownModule,
     TableModule,
+    CardModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-fmeenf3n.us.auth0.com',

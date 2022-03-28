@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { INavData } from '@coreui/angular';
-import { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire } from '@coreui/icons';
+import { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -30,20 +30,25 @@ export class AppLayoutComponent {
       iconComponent: { name: 'cil-fire' }
     },
     {
+      name: 'Gestisci profilo',
+      url: '/profile',
+      iconComponent: { name: 'cil-user' }
+    },
+    {
       name: 'Account',
       url: '/accounts',
       iconComponent: { name: 'cil-group' }
     },
     {
-      name: 'Gestisci profilo',
-      url: '/profile',
-      iconComponent: { name: 'cil-user' }
+      name: 'Visualizza container',
+      url: '/viewcontainer',
+      iconComponent: { name: 'cil-factory' }
     }
   ]
 
   constructor(public iconSet: IconSetService,public auth: AuthService) {
     // iconSet singleton
-    iconSet.icons = { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire };
+    iconSet.icons = { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory };
   }
 
 }

@@ -11,14 +11,21 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./view-log.component.css']
 })
 export class ViewLogComponent implements OnInit {
-  logData:any;
+  logData: any;
 
   constructor(public auth: AuthService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/logs").subscribe((res)=>{
-      this.logData=res;
+    this.http.get("http://localhost:8080/logs").subscribe((res) => {
+      this.logData = res;
+      this.logData.forEach((el: any) => {
+        var datetime = Array(2);
+        var time = el.transaction.time;
+        datetime[0] = time.substring(0, time.indexOf(':'));
+        datetime[1] = time.substring(time.indexOf(':') + 1).split('.')[0]+" GMT+0";
+        el.transaction.time=datetime;
+      });
     })
   }
 

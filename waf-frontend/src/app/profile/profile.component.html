@@ -1,4 +1,9 @@
-<ng-container *ngIf="auth.user$ | async as user">
-    <p>Nome:{{user.name}}</p>
-    <p>Email:{{user.email}}</p>
-</ng-container>
+<c-card>
+    <c-card-header>Informazioni sull'account</c-card-header>
+    <c-card-body>
+        <ng-container *ngIf="auth.user$ | async as user">
+            <p>Nome:{{user.name}}</p>
+            <p>Email:{{user.email}}</p>
+        </ng-container>
+    </c-card-body>
+</c-card>

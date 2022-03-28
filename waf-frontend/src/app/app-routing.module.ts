@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
 import { ViewLogComponent } from './view-log/view-log.component';
+import { ViewContainerComponent } from './view-container/view-container.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes:Routes=[
@@ -35,6 +36,11 @@ const routes:Routes=[
       {
         path:'accounts',
         component:AccountsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path:'viewcontainer',
+        component:ViewContainerComponent,
         canActivate: [AuthGuard]
       },
       {

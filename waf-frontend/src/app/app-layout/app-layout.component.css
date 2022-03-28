@@ -5,10 +5,19 @@
 }
 
 #userInfo{
-    padding: 1vw;
-    background-color: darkgreen;
+    padding: 0.5vw;
+    background-color: rgb(63, 70, 77);
     border-top: 0.5px solid gray;
     border-bottom: 0.5px solid gray;
+}
+
+.sidebar, .header, .nav-item,.nav-link,#sidebarTButton{
+    background-color: rgb(78, 87, 97);
+    color: lightgray;
+}
+
+#logoutButton{
+    background-color: lightgray;
 }
 
 #userInfo svg{
@@ -24,3 +33,7 @@
 .wrapper {
     padding-left: var(--cui-sidebar-occupy-start);
   }
+
+#content{
+    margin: 1vw;
+}

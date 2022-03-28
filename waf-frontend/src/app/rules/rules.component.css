@@ -2,3 +2,12 @@
     height: 5vw;
     overflow-y: scroll;
 }
+
+#statusSwitchTd{
+    vertical-align: middle;
+}
+
+#statusSwitch{
+    width: 3.5vw;
+    height: 2vw;
+}
