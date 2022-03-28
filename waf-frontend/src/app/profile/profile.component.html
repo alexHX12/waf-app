@@ -4,6 +4,7 @@
         <ng-container *ngIf="auth.user$ | async as user">
             <p>Nome:{{user.name}}</p>
             <p>Email:{{user.email}}</p>
+            <button (click)="changePassword()">Cambia password</button>
         </ng-container>
     </c-card-body>
 </c-card>
