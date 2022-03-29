@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const logController=require("../controller/log");
+const logController=require("../controller/logs");
 const rulesController=require("../controller/rules");
+const jwtScope = require('express-jwt-scope');
+
+let options = {
+    scopeKey: 'permissions'
+  };
 
 /*
 Log:
@@ -10,7 +15,7 @@ POST NO
 PATCH NO
 DELETE NO 
 */
-router.get('/logs', logController.getLog);
+router.get('/logs',jwtScope('read:logs',options), logController.getLog);
 /*
 Log:
 GET OK
@@ -18,6 +23,6 @@ POST OK
 PATCH OK
 DELETE OK
 */
-router.get('/rules', rulesController.getRules);
+router.get('/rules',jwtScope('read:rules',options), rulesController.getRules);
 
 module.exports = router;

@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  public visible = false;
 
   constructor(public auth: AuthService, private http: HttpClient) { }
 
@@ -21,8 +22,12 @@ export class ProfileComponent implements OnInit {
         email: user?.email,
         connection: 'Username-Password-Authentication'
       }, { headers: { 'content-type': 'application/json'},responseType:"text"}).subscribe((res)=>{
-        console.log(res);
+        this.toggleModal();
       })
     });
+  }
+
+  toggleModal(){
+    this.visible = !this.visible;
   }
 }
