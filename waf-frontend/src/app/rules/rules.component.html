@@ -23,7 +23,7 @@
                             </div>
                         </td>
                     </ng-container>
-                    <td  id="statusSwitchTd">
+                    <td id="statusSwitchTd">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="statusSwitch" checked>
                         </div>
@@ -53,5 +53,30 @@
                 </tr>
             </tbody>
         </table>
+    </c-card-body>
+</c-card>
+<br>
+<c-card>
+    <c-card-header>Aggiungi regola</c-card-header>
+    <c-card-body>
+        <form [gutter]="3" novalidate cForm cRow class="needs-validation">
+            <c-col [md]="4">
+                <label cLabel for="ruleName">Nome regola</label>
+                <input cFormControl id="ruleName" required type="text" placeholder="Nome regola" />
+            </c-col>
+            <c-col [md]="4">
+                <label cLabel for="ruleDesc">Descrizione</label>
+                <input cFormControl id="ruleDesc" required type="text" placeholder="Descrizione" />
+            </c-col>
+            <c-col [md]="4">
+                <label cLabel for="ruleText">Testo regola</label>
+                <input cFormControl id="ruleText" required type="text" placeholder="Testo regola" />
+            </c-col>
+            <c-col [xs]="12">
+                <button cButton class="me-1" color="primary" type="submit">
+                    Invia
+                </button>
+            </c-col>
+        </form>
     </c-card-body>
 </c-card>

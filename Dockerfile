@@ -6,5 +6,6 @@ COPY ./waf-frontend/dist/waf-frontend /waf-frontend
 COPY ./waf-backend /waf-backend
 COPY ./waf-httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ./waf-httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.conf
+COPY ./waf-httpd-custom.conf /usr/local/apache2/conf/extra/waf-custom.conf
 
 CMD /waf-backend/waf-init.sh
