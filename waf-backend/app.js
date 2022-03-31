@@ -24,8 +24,6 @@ var app = express();
 
 const axios = require("axios");
 
-var api_mngmnt_token;
-
 const options = {
   method: 'POST',
   url: 'https://dev-fmeenf3n.us.auth0.com/oauth/token',
@@ -39,9 +37,7 @@ const options = {
 };
 
 
-axios(options).then((res) => {
-  api_mngmnt_token = res.data.access_token;
-})
+var api_mngmnt_promise=axios(options);
 
 app.use(jwtCheck);
 app.use(logger('dev'));
@@ -70,4 +66,4 @@ app.use(function (err, req, res, next) {
   });
 });
 
-module.exports = {app,api_mngmnt_token};
+module.exports = {app,api_mngmnt_promise};

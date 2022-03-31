@@ -10,10 +10,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Test</td>
-                    <td>test@test.com</td>
+                <tr *ngFor="let user of users;let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
                 </tr>
             </tbody>
         </table>
