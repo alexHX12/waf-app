@@ -10,5 +10,9 @@ module.exports = {
       res.contentType('application/json');
       res.send(JSON.stringify(ruleSetRes));
     })
+  },
+
+  addRule: function(req,res,next){
+    console.log("Nome:"+req.body.name+"\nDesc:"+req.body.desc+"\nText:"+req.body.text);
   }
 }

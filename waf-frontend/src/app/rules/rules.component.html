@@ -59,18 +59,18 @@
 <c-card>
     <c-card-header>Aggiungi regola</c-card-header>
     <c-card-body>
-        <form [gutter]="3" novalidate cForm cRow class="needs-validation">
+        <form [gutter]="3" novalidate cForm cRow class="needs-validation" (submit)="newRule()">
             <c-col [md]="4">
                 <label cLabel for="ruleName">Nome regola</label>
-                <input cFormControl id="ruleName" required type="text" placeholder="Nome regola" />
+                <input cFormControl id="ruleName" name="ruleName" [(ngModel)]="ruleName" required type="text" placeholder="Nome regola" />
             </c-col>
             <c-col [md]="4">
                 <label cLabel for="ruleDesc">Descrizione</label>
-                <input cFormControl id="ruleDesc" required type="text" placeholder="Descrizione" />
+                <input cFormControl id="ruleDesc" name="ruleDesc" [(ngModel)]="ruleDesc" required type="text" placeholder="Descrizione" />
             </c-col>
             <c-col [md]="4">
                 <label cLabel for="ruleText">Testo regola</label>
-                <input cFormControl id="ruleText" required type="text" placeholder="Testo regola" />
+                <input cFormControl id="ruleText" name="ruleText" [(ngModel)]="ruleText" required type="text" placeholder="Testo regola" />
             </c-col>
             <c-col [xs]="12">
                 <button cButton class="me-1" color="primary" type="submit">
@@ -80,3 +80,13 @@
         </form>
     </c-card-body>
 </c-card>
+
+<c-modal id="liveDemoModal" [visible]="visible">
+    <c-modal-header>
+      <h5 cModalTitle>Conferma operazione</h5>
+    </c-modal-header>
+    <c-modal-body>Regola aggiunta correttamente!</c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
+    </c-modal-footer>
+  </c-modal>

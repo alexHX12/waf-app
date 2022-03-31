@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -48,6 +49,7 @@ import { ViewContainerComponent } from './view-container/view-container.componen
     ButtonModule,
     BrowserAnimationsModule,
     FormModule,
+    FormsModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'dev-fmeenf3n.us.auth0.com',

@@ -1,1 +1,1 @@
-sudo docker build -t waf-app . && docker run --net=host -v "/home/alex/Scrivania/waf-app/vol:/vol" -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/audit.log waf-app
+docker build -t waf-app . && docker run --net=host -v "/home/alex/Scrivania/waf-app/vol:/vol" -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/audit.log waf-app

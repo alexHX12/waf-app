@@ -24,5 +24,6 @@ PATCH OK
 DELETE OK
 */
 router.get('/rules',jwtScope('read:rules',options), rulesController.getRules);
+router.post('/rules',jwtScope('create:rules',options), rulesController.addRule);
 
 module.exports = router;
