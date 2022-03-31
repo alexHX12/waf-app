@@ -22,6 +22,27 @@ var rootRouter = require('./routes/root');
 
 var app = express();
 
+const axios = require("axios");
+
+var api_mngmnt_token;
+
+const options = {
+  method: 'POST',
+  url: 'https://dev-fmeenf3n.us.auth0.com/oauth/token',
+  headers: { 'content-type': 'application/json' },
+  data: {
+    client_id:"2BPjToNJXwRYL6NPMxz3nYiTeuZEWZ4y",
+    client_secret:"mjRDkqncXBJxKJ58gUOc0MdO7QXBMJusQJOK4Tf3ZegEKQHyWcyz_psMih4jsN5X",
+    audience:"https://dev-fmeenf3n.us.auth0.com/api/v2/",
+    grant_type:"client_credentials"
+  }
+};
+
+
+axios(options).then((res) => {
+  api_mngmnt_token = res.data.access_token;
+})
+
 app.use(jwtCheck);
 app.use(logger('dev'));
 app.use(express.json());
@@ -44,9 +65,9 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500).json({
-        message: err.message,
-        error: err
-    });
+    message: err.message,
+    error: err
+  });
 });
 
-module.exports = app;
+module.exports = {app,api_mngmnt_token};
