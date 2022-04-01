@@ -21,8 +21,6 @@ services:
     waf-frontend:
         image: httpd
         restart: always
-        ports:
-            - 4200:4200
         volumes:
             - /home/alex/Scrivania/waf-app/frontend/waf-frontend/dist/waf-frontend:/waf-frontend
             - /home/alex/Scrivania/waf-app/frontend/waf-frontend-httpd.conf:/usr/local/apache2/conf/httpd.conf
@@ -35,13 +33,11 @@ services:
         ports:
             - 80:80
             - 443:443
-            - 8080:8080
         volumes:
             - /home/alex/Scrivania/waf-app/backend/vol:/vol
         environment:
             PROXY: 1
             PROXY_SSL: "on"
             PROXY_PRESERVE_HOST: "off"
-            BACKEND: http://fattiunpanino.altervista.org
             PARANOIA: 1
             MODSEC_AUDIT_LOG: /vol/audit.log

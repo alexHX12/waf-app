@@ -13,7 +13,7 @@ var jwtCheck = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: 'https://dev-fmeenf3n.us.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'http://localhost:8080',
+  audience: 'http://api.localhost',
   issuer: 'https://dev-fmeenf3n.us.auth0.com/',
   algorithms: ['RS256']
 });

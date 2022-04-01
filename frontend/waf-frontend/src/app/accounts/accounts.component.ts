@@ -12,7 +12,7 @@ export class AccountsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/users").subscribe((res) => {
+    this.http.get("http://api.localhost/users").subscribe((res) => {
       this.users=res;
     })
   }

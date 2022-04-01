@@ -17,7 +17,7 @@ export class ViewLogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/logs").subscribe((res) => {
+    this.http.get("http://api.localhost/logs").subscribe((res) => {
       this.logData = res;
       this.logData.forEach((el: any) => {
         var datetime = Array(2);

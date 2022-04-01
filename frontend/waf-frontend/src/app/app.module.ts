@@ -54,13 +54,13 @@ import { ViewContainerComponent } from './view-container/view-container.componen
     AuthModule.forRoot({
       domain: 'dev-fmeenf3n.us.auth0.com',
       clientId: 'PQuVo6cmELKpqSWA8FhuQinoREXfufWU',
-      audience:'http://localhost:8080',
+      audience:'http://api.localhost',
       httpInterceptor: {
         allowedList: [
           {
-            uri: 'http://localhost:8080/*',
+            uri: 'http://api.localhost/*',
             tokenOptions: {
-              audience: 'http://localhost:8080'
+              audience: 'http://api.localhost'
             }
           }
         ]

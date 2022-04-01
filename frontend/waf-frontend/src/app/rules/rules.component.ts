@@ -16,7 +16,7 @@ export class RulesComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/rules").subscribe((res)=>{
+    this.http.get("http://api.localhost/rules").subscribe((res)=>{
       this.ruleSet=res;
     })
   }
@@ -27,7 +27,7 @@ export class RulesComponent implements OnInit {
     data['desc']=this.ruleDesc;
     data['text']=this.ruleText;
     console.log(data);
-    this.http.post("http://localhost:8080/rules", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
+    this.http.post("http://api.localhost/rules", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
         this.toggleModal();
       })
   }

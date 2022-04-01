@@ -3,7 +3,7 @@
     <div id="userInfo">
       <p><c-icon name="cilUser" size="xl"></c-icon><ng-container *ngIf="auth.user$ | async as user">{{user.name}}</ng-container></p>
     </div>
-    <button id="logoutButton" (click)="auth.logout({ returnTo: 'http://localhost:4200' })">Log out</button>
+    <button id="logoutButton" (click)="auth.logout({ returnTo: 'http://gestione.localhost' })">Log out</button>
     <c-sidebar-nav [navItems]="navItems"></c-sidebar-nav>
   </c-sidebar>
   <div class="wrapper">
