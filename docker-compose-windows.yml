@@ -1,0 +1,47 @@
+# Versione Docker compose file
+version: '3'
+services: 
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: test
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports:
+        - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: test
+            ME_CONFIG_MONGODB_URL: mongodb://root:test@mongo:27017/
+    
+    waf-frontend:
+        image: httpd
+        restart: always
+        ports:
+            - 4200:4200
+        volumes:
+            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend\dist\waf-frontend:/waf-frontend
+            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend-httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+
+    waf-backend:
+        build:
+            context: .\backend\
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+            - 8080:8080
+        volumes:
+            - C:\Users\alex\Desktop\WAF Project\backend\vol:/vol
+        environment:
+            PROXY: 1
+            PROXY_SSL: "on"
+            PROXY_PRESERVE_HOST: "off"
+            BACKEND: http://fattiunpanino.altervista.org
+            PARANOIA: 1
+            MODSEC_AUDIT_LOG: /vol/audit.log

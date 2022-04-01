@@ -1,2 +1,2 @@
-docker build -t waf-app . && docker run --net=host -v "/home/alex/Scrivania/waf-app/vol:/vol" -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/audit.log waf-app
-#docker build -t waf-app . ; docker run -p 80:80 -p 443:443 -p 8080:8080 -p 4200:4200 -v "C:\Users\alex\Desktop\WAF Project\vol":/vol" -e PROXY=1 -e PROXY_SSL=on -e PROXY_PRESERVE_HOST=off -e BACKEND=http://fattiunpanino.altervista.org -e PARANOIA=1 -e MODSEC_AUDIT_LOG=/vol/audit.log waf-app
+docker compose -f ./docker-compose-linux.yml up
+#docker compose -f .\docker-compose-windows.yml up
