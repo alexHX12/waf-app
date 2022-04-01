@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RulesComponent implements OnInit {
   visible=false;
+  newRuleFormValidated=false;
   ruleSet:any;
   ruleName:string="";
   ruleDesc:string="";
@@ -22,11 +23,11 @@ export class RulesComponent implements OnInit {
   }
 
   newRule(){
+    this.newRuleFormValidated=true;
     var data:any={};
     data['name']=this.ruleName;
     data['desc']=this.ruleDesc;
     data['text']=this.ruleText;
-    console.log(data);
     this.http.post("http://api.localhost/rules", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
         this.toggleModal();
       })

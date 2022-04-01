@@ -59,7 +59,7 @@
 <c-card>
     <c-card-header>Aggiungi regola</c-card-header>
     <c-card-body>
-        <form [gutter]="3" novalidate cForm cRow class="needs-validation" (submit)="newRule()">
+        <form [gutter]="3" [validated]="newRuleFormValidated" cForm cRow class="needs-validation" (submit)="newRule()" ngNativeValidate>
             <c-col [md]="4">
                 <label cLabel for="ruleName">Nome regola</label>
                 <input cFormControl id="ruleName" name="ruleName" [(ngModel)]="ruleName" required type="text" placeholder="Nome regola" />

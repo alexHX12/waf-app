@@ -4,6 +4,8 @@ services:
     mongo:
         image: mongo
         restart: always
+        volumes:
+            - waf-db:/data/db
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: test
@@ -41,3 +43,5 @@ services:
             PROXY_PRESERVE_HOST: "off"
             PARANOIA: 1
             MODSEC_AUDIT_LOG: /vol/audit.log
+volumes:
+    waf-db:

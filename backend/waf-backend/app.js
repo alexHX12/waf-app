@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
+const { dbConnection } = require("./dbConnection");
+
+dbConnection.connectToDB();
 
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
