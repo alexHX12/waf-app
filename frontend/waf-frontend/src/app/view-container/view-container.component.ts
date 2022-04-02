@@ -9,12 +9,16 @@ import { HttpClient } from '@angular/common/http';
 export class ViewContainerComponent implements OnInit {
   visible=false;
   newContainerFormValidated=false;
+  allContainers:any;
   containerDomain="";
   containerURL="";
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.http.get("http://api.localhost/containers").subscribe((res)=>{
+        this.allContainers=res;
+      })
   }
 
   newContainer(){
@@ -29,6 +33,12 @@ export class ViewContainerComponent implements OnInit {
 
   toggleModal(){
     this.visible = !this.visible;
+  }
+
+  deleteContainer(){
+    this.http.delete("http://api.localhost/containers").subscribe((res)=>{
+        this.toggleModal();
+      })
   }
 
 }

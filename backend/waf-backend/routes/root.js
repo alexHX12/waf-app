@@ -22,8 +22,8 @@ router.get('/logs',jwtScope('read:logs',options), logController.getLog);
 Rules:
 GET OK
 POST OK
-PATCH OK
-DELETE OK
+PATCH ...
+DELETE ...
 */
 router.get('/rules',jwtScope('read:rules',options), rulesController.getRules);
 router.post('/rules',jwtScope('create:rules',options), rulesController.addRule);
@@ -40,8 +40,10 @@ Containers:
 GET OK
 POST OK
 PATCH ...
-DELETE ...
+DELETE OK
 */
-router.post('/containers',jwtScope('create:containers',options),containersController.addContainer)
+router.get('/containers',jwtScope('read:containers',options),containersController.getContainers);
+router.post('/containers',jwtScope('create:containers',options),containersController.addContainer);
+router.delete('/containers',jwtScope('delete:containers',options),containersController.deleteContainer);
 
 module.exports = router;

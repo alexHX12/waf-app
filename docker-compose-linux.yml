@@ -45,5 +45,6 @@ services:
             PROXY_PRESERVE_HOST: "off"
             PARANOIA: 1
             MODSEC_AUDIT_LOG: /vol/audit.log
+            ALLOWED_METHODS: "GET HEAD POST OPTIONS DELETE PUT PATCH"
 volumes:
     waf-db:

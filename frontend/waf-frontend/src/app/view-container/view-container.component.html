@@ -10,10 +10,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Test</td>
-                    <td>172.16.0.1</td>
+                <tr *ngFor="let container of allContainers;let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{container.domain}}</td>
+                    <td>{{container.url}}</td>
+                    <td></td>
+                    <td>
+                        <button cButton (click)="deleteContainer()">
+                            Elimina
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +51,7 @@
     <c-modal-header>
       <h5 cModalTitle>Conferma operazione</h5>
     </c-modal-header>
-    <c-modal-body>Regola aggiunta correttamente!</c-modal-body>
+    <c-modal-body>Container aggiunto correttamente!</c-modal-body>
     <c-modal-footer>
       <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
     </c-modal-footer>

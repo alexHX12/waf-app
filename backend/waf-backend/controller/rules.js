@@ -23,8 +23,19 @@ module.exports = {
     phase=newRule.phase;
     action=newRule.action;
     msg=newRule.desc;
-    var rule=req.body.text+"\\\n"+"\"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"'\"\n";
+    var rule=req.body.text+" \\\n"+"\"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"'\"\n";
     fs.appendFileSync("/usr/local/apache2/conf/extra/waf-custom.conf",rule);
+    exec("apachectl restart",(error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
     res.status(200).send(result);
   }
 }
