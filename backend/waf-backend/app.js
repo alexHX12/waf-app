@@ -6,8 +6,10 @@ var logger = require('morgan');
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 const { dbConnection } = require("./dbConnection");
+const autoIncrement = require('mongoose-auto-increment');
 
 dbConnection.connectToDB();
+autoIncrement.initialize(dbConnection.db);
 
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({

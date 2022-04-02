@@ -13,11 +13,11 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <ng-container *ngIf="ruleSet!=undefined">
-                        <td>{{ruleSet.ruleSetName}}</td>
+                    <ng-container *ngIf="allRules!=undefined">
+                        <td>{{allRules.set.ruleSetName}}</td>
                         <td>
                             <div class="rs_div">
-                                <ng-container *ngFor="let r of ruleSet.confFiles">
+                                <ng-container *ngFor="let r of allRules.set.confFiles">
                                     {{r}}<br>
                                 </ng-container>
                             </div>
@@ -42,15 +42,23 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome regola</th>
-                    <th scope="col">Regola</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Testo regola</th>
+                    <th scope="col">Fase di attivazione</th>
+                    <th scope="col">Azione</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Test</td>
-                    <td>Block IP</td>
+                <ng-container *ngIf="allRules!=undefined">
+                <tr *ngFor="let rule of allRules.custom;let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{rule.name}}</td>
+                    <td>{{rule.desc}}</td>
+                    <td>{{rule.text}}</td>
+                    <td>{{rule.phase}}</td>
+                    <td>{{rule.action}}</td>
                 </tr>
+            </ng-container>
             </tbody>
         </table>
     </c-card-body>
@@ -60,17 +68,32 @@
     <c-card-header>Aggiungi regola</c-card-header>
     <c-card-body>
         <form [gutter]="3" [validated]="newRuleFormValidated" cForm cRow class="needs-validation" (submit)="newRule()" ngNativeValidate>
-            <c-col [md]="4">
+            <c-col [md]="2">
                 <label cLabel for="ruleName">Nome regola</label>
                 <input cFormControl id="ruleName" name="ruleName" [(ngModel)]="ruleName" required type="text" placeholder="Nome regola" />
             </c-col>
-            <c-col [md]="4">
+            <c-col [md]="2">
                 <label cLabel for="ruleDesc">Descrizione</label>
                 <input cFormControl id="ruleDesc" name="ruleDesc" [(ngModel)]="ruleDesc" required type="text" placeholder="Descrizione" />
             </c-col>
             <c-col [md]="4">
                 <label cLabel for="ruleText">Testo regola</label>
                 <input cFormControl id="ruleText" name="ruleText" [(ngModel)]="ruleText" required type="text" placeholder="Testo regola" />
+            </c-col>
+            <c-col [md]="2">
+                <label cLabel for="rulePhase">Fase di attivazione</label>
+                <select cSelect id="rulePhase" name="rulePhase" [(ngModel)]="rulePhase" required>
+                    <option value="" selected disabled hidden>Scegli fase</option>
+                    <option *ngFor="let n of [].constructor(5);let i=index">{{i+1}}</option>
+                </select>
+            </c-col>
+            <c-col [md]="2">
+                <label cLabel for="ruleAction">Azione</label>
+                <select cSelect id="ruleAction" name="ruleAction" [(ngModel)]="ruleAction" required>
+                    <option value="" selected disabled hidden>Scegli azione</option>
+                    <option>allow</option>
+                    <option>deny</option>
+                </select>
             </c-col>
             <c-col [xs]="12">
                 <button cButton class="me-1" color="primary" type="submit">

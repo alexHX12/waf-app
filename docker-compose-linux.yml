@@ -37,6 +37,8 @@ services:
             - 443:443
         volumes:
             - /home/alex/Scrivania/waf-app/backend/vol:/vol
+            - /home/alex/Scrivania/waf-app/backend/waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+            - /home/alex/Scrivania/waf-app/backend/waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
         environment:
             PROXY: 1
             PROXY_SSL: "on"

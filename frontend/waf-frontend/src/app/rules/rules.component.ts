@@ -9,16 +9,18 @@ import { HttpClient } from '@angular/common/http';
 export class RulesComponent implements OnInit {
   visible=false;
   newRuleFormValidated=false;
-  ruleSet:any;
+  allRules:any;
   ruleName:string="";
   ruleDesc:string="";
   ruleText:string="";
+  rulePhase:string="";
+  ruleAction:string="";
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get("http://api.localhost/rules").subscribe((res)=>{
-      this.ruleSet=res;
+      this.allRules=res;
     })
   }
 
@@ -28,6 +30,8 @@ export class RulesComponent implements OnInit {
     data['name']=this.ruleName;
     data['desc']=this.ruleDesc;
     data['text']=this.ruleText;
+    data['phase']=this.rulePhase;
+    data['action']=this.ruleAction;
     this.http.post("http://api.localhost/rules", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
         this.toggleModal();
       })

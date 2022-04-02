@@ -5,8 +5,8 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">IP</th>
+                    <th scope="col">Dominio</th>
+                    <th scope="col">URL</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,3 +19,34 @@
         </table>
     </c-card-body>
 </c-card>
+<br>
+<c-card>
+    <c-card-header>Aggiungi container</c-card-header>
+    <c-card-body>
+        <form [gutter]="3" [validated]="newContainerFormValidated" cForm cRow class="needs-validation" (submit)="newContainer()" ngNativeValidate>
+            <c-col [md]="2">
+                <label cLabel for="containerDomain">Dominio</label>
+                <input cFormControl id="containerDomain" name="containerDomain" [(ngModel)]="containerDomain" required type="text" placeholder="Dominio" />
+            </c-col>
+            <c-col [md]="2">
+                <label cLabel for="containerURL">URL</label>
+                <input cFormControl id="containerURL" name="containerURL" [(ngModel)]="containerURL" required type="text" placeholder="URL" />
+            </c-col>
+            <c-col [xs]="12">
+                <button cButton class="me-1" color="primary" type="submit">
+                    Invia
+                </button>
+            </c-col>
+        </form>
+    </c-card-body>
+</c-card>
+
+<c-modal id="liveDemoModal" [visible]="visible">
+    <c-modal-header>
+      <h5 cModalTitle>Conferma operazione</h5>
+    </c-modal-header>
+    <c-modal-body>Regola aggiunta correttamente!</c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
+    </c-modal-footer>
+  </c-modal>
