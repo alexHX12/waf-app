@@ -7,6 +7,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Dominio</th>
                     <th scope="col">URL</th>
+                    <th scope="col">Gestione</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,9 +15,13 @@
                     <th scope="row">{{i+1}}</th>
                     <td>{{container.domain}}</td>
                     <td>{{container.url}}</td>
-                    <td></td>
                     <td>
-                        <button cButton (click)="deleteContainer()">
+                        <a href="http://{{container.domain}}">
+                            <button cButton class="visit_domain_button">
+                                Visita
+                            </button>
+                        </a>
+                        <button cButton (click)="deleteContainer(container._id,i)">
                             Elimina
                         </button>
                     </td>
@@ -51,7 +56,7 @@
     <c-modal-header>
       <h5 cModalTitle>Conferma operazione</h5>
     </c-modal-header>
-    <c-modal-body>Container aggiunto correttamente!</c-modal-body>
+    <c-modal-body>Operazione eseguita correttamente!</c-modal-body>
     <c-modal-footer>
       <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
     </c-modal-footer>

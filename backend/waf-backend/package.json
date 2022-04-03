@@ -15,6 +15,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jwks-rsa": "^2.0.5",
+    "mongoose": "^6.2.9",
     "mongoose-auto-increment": "^5.0.1",
     "moongose": "^1.0.0",
     "morgan": "~1.9.1",

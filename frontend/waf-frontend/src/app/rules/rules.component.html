@@ -46,6 +46,7 @@
                     <th scope="col">Testo regola</th>
                     <th scope="col">Fase di attivazione</th>
                     <th scope="col">Azione</th>
+                    <th scope="col">Gestione</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,6 +58,11 @@
                     <td>{{rule.text}}</td>
                     <td>{{rule.phase}}</td>
                     <td>{{rule.action}}</td>
+                    <td>
+                        <button cButton>
+                            Elimina
+                        </button>
+                    </td>
                 </tr>
             </ng-container>
             </tbody>

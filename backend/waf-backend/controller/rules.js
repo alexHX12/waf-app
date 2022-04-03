@@ -7,7 +7,7 @@ module.exports = {
     fs.readdir("/etc/modsecurity.d/owasp-crs/rules/", async function (err, files) {
       var ruleSetRes = {};
       ruleSetRes.ruleSetName = "OWASP Core Rule Set (CRS)"
-      ruleSetRes.confFiles = files.filter(el => path.extname(el) === '.conf');
+      ruleSetRes.confFiles = files.filter(el => path.extname(el) === '.conf').map(el=>path.parse(el).name);
       var allRules={};
       allRules['set']=ruleSetRes;
       allRules['custom']=await Rule.find();
@@ -35,7 +35,19 @@ module.exports = {
           return;
       }
       console.log(`stdout: ${stdout}`);
+      res.contentType('application/json');
+      res.status(200).send(result);
+      exec("apachectl restart",(error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+      });
     });
-    res.status(200).send(result);
   }
 }

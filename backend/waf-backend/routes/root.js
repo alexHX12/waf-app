@@ -37,13 +37,17 @@ DELETE ...
 router.get('/users',jwtScope('read:accounts',options),usersController.getUsers);
 /*
 Containers:
-GET OK
-POST OK
-PATCH ...
-DELETE OK
+
+  /containers
+    - GET OK
+    - POST OK
+
+  /containers/:containerId
+    - PATCH ...
+    - DELETE OK
 */
 router.get('/containers',jwtScope('read:containers',options),containersController.getContainers);
 router.post('/containers',jwtScope('create:containers',options),containersController.addContainer);
-router.delete('/containers',jwtScope('delete:containers',options),containersController.deleteContainer);
+router.delete('/containers/:containerId',jwtScope('delete:containers',options),containersController.deleteContainer);
 
 module.exports = router;

@@ -26,7 +26,8 @@ export class ViewContainerComponent implements OnInit {
     var data:any={};
     data['domain']=this.containerDomain;
     data['url']=this.containerURL;
-    this.http.post("http://api.localhost/containers", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
+    this.http.post("http://api.localhost/containers", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{ 
+        this.allContainers.push(res);
         this.toggleModal();
       })
   }
@@ -35,8 +36,9 @@ export class ViewContainerComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  deleteContainer(){
-    this.http.delete("http://api.localhost/containers").subscribe((res)=>{
+  deleteContainer(id:string,index:Number){
+    this.http.delete("http://api.localhost/containers/"+id).subscribe((res)=>{
+        this.allContainers.splice(index,1);
         this.toggleModal();
       })
   }
