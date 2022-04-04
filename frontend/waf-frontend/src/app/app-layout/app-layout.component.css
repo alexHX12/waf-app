@@ -6,18 +6,24 @@
 
 #userInfo{
     padding: 0.5vw;
-    background-color: rgb(63, 70, 77);
-    border-top: 0.5px solid gray;
-    border-bottom: 0.5px solid gray;
+    background-color: #086948;
 }
 
-.sidebar, .header, .nav-item,.nav-link,#sidebarTButton{
-    background-color: rgb(78, 87, 97);
-    color: lightgray;
+#sidebar,.header,.nav-link, #sidebarTButton, #h-warning{
+    background-color: #1a5875;
+    color: rgba(255,255,255,.6);
+}
+
+.nav-link:hover{
+    color:rgba(255,255,255,.6);
 }
 
 #logoutButton{
-    background-color: lightgray;
+    background-color: rgba(241, 37, 14, 0.6);
+    border: none;
+    color: rgba(255,255,255,.6);
+    font-size: 1vw;
+    padding: 0.5vw;
 }
 
 #userInfo svg{
@@ -36,4 +42,17 @@
 
 #content{
     margin: 1vw;
+}
+
+.sidebar-nav{
+    flex:none;
+}
+
+.div_text{
+    padding: 0.5vw;
+    text-align: center;
+}
+
+.div_text p{
+    margin: 0px;
 }

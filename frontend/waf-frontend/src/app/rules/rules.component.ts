@@ -33,11 +33,19 @@ export class RulesComponent implements OnInit {
     data['phase']=this.rulePhase;
     data['action']=this.ruleAction;
     this.http.post("http://api.localhost/rules", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{
+      this.allRules.custom.push(res);
         this.toggleModal();
       })
   }
 
   toggleModal(){
     this.visible = !this.visible;
+  }
+
+  deleteRule(id:string,index:Number){
+    this.http.delete("http://api.localhost/rules/"+id).subscribe((res)=>{
+        this.allRules.custom.splice(index,1);
+        this.toggleModal();
+      })
   }
 }

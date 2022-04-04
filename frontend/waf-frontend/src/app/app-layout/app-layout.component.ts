@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { INavData } from '@coreui/angular';
-import { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory } from '@coreui/icons';
+import { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -15,11 +15,6 @@ export class AppLayoutComponent {
   title = 'waf-frontend';
   navItems:INavData[]=[
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      iconComponent: { name: 'cil-speedometer' }
-    },
-    {
       name: 'Gestisci regole',
       url: '/rules',
       iconComponent: { name: 'cil-shield-alt' }
@@ -33,7 +28,10 @@ export class AppLayoutComponent {
       name: 'Gestisci profilo',
       url: '/profile',
       iconComponent: { name: 'cil-user' }
-    },
+    }
+  ]
+
+  navItemsAdmin:INavData[]=[
     {
       name: 'Account',
       url: '/accounts',
@@ -48,7 +46,7 @@ export class AppLayoutComponent {
 
   constructor(public iconSet: IconSetService,public auth: AuthService) {
     // iconSet singleton
-    iconSet.icons = { cilSpeedometer,cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory };
+    iconSet.icons = { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory };
   }
 
 }

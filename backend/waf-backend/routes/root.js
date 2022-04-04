@@ -20,13 +20,18 @@ DELETE NO
 router.get('/logs',jwtScope('read:logs',options), logController.getLog);
 /*
 Rules:
-GET OK
-POST OK
-PATCH ...
-DELETE ...
+
+  /rules
+    - GET OK
+    - POST OK
+  
+  /rules/:ruleId
+    - PATCH ...
+    - DELETE OK
 */
 router.get('/rules',jwtScope('read:rules',options), rulesController.getRules);
 router.post('/rules',jwtScope('create:rules',options), rulesController.addRule);
+router.delete('/rules/:ruleId',jwtScope('delete:rules',options),rulesController.deleteRule);
 /*
 Users:
 GET OK

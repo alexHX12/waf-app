@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule,TableModule,CardModule,ModalModule,ButtonModule,FormModule} from '@coreui/angular';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -25,7 +24,6 @@ import { ViewContainerComponent } from './view-container/view-container.componen
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     AppLayoutComponent,
     AccountsComponent,
     ProfileComponent,

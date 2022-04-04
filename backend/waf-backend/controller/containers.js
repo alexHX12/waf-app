@@ -34,7 +34,7 @@ module.exports = {
   deleteContainer: async function(req,res,next){
     const result=await Container.findByIdAndDelete(req.params.containerId);
     result.url=result.url.replace(/\//g, "\\/");
-    exec("echo \"$(sed '/Use VHost "+result.domain+" "+result.url+"/d' /usr/local/apache2/conf/extra/httpd-vhosts.conf)\" > /usr/local/apache2/conf/extra/httpd-vhosts.conf",(error, stdout, stderr) => {
+    exec("echo \"$(sed \"/Use VHost "+result.domain+" "+result.url+"/d\" /usr/local/apache2/conf/extra/httpd-vhosts.conf)\" > /usr/local/apache2/conf/extra/httpd-vhosts.conf",(error, stdout, stderr) => {
       if (error) {
           console.log(`error: ${error.message}`);
           return;
@@ -44,7 +44,7 @@ module.exports = {
           return;
       }
       console.log(`stdout: ${stdout}`);
-      res.status(200).send();
+      res.status(200).send(result);
       exec("apachectl restart",(error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);

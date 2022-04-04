@@ -59,7 +59,7 @@
                     <td>{{rule.phase}}</td>
                     <td>{{rule.action}}</td>
                     <td>
-                        <button cButton>
+                        <button cButton (click)="deleteRule(rule._id,i)">
                             Elimina
                         </button>
                     </td>
@@ -114,7 +114,7 @@
     <c-modal-header>
       <h5 cModalTitle>Conferma operazione</h5>
     </c-modal-header>
-    <c-modal-body>Regola aggiunta correttamente!</c-modal-body>
+    <c-modal-body>Operazione eseguita correttamente!</c-modal-body>
     <c-modal-footer>
       <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
     </c-modal-footer>
