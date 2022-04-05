@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { INavData } from '@coreui/angular';
-import { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory } from '@coreui/icons';
+import { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory,cilWarning } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -46,7 +46,7 @@ export class AppLayoutComponent {
 
   constructor(public iconSet: IconSetService,public auth: AuthService) {
     // iconSet singleton
-    iconSet.icons = { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory };
+    iconSet.icons = { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory,cilWarning };
   }
 
 }

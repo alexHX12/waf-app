@@ -26,6 +26,7 @@ export class ViewLogComponent implements OnInit {
         datetime[1] = time.substring(time.indexOf(':') + 1).split('.')[0]+" GMT+0";
         el.transaction.time=datetime;
       });
+      this.logData=this.logData.filter((el:any)=>el.audit_data.messages!=undefined);//Non considero errori generici
     })
   }
 

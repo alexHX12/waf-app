@@ -9,6 +9,9 @@
                     <th scope="col">Socket client</th>
                     <th scope="col">Data e ora</th>
                     <th scope="col">Minaccia rilevata</th>
+                    <th scope="col">Pattern rilevato</th>
+                    <th scope="col">Richiesta</th>
+                    <th scope="col">Gravità</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,13 +20,10 @@
                     <td>{{log.transaction.local_address+":"+log.transaction.local_port}}</td>
                     <td>{{log.transaction.remote_address+":"+log.transaction.remote_port}}</td>
                     <td>Data:{{log.transaction.time[0]}}<br>Ora:{{log.transaction.time[1]}}</td>
-                    <td id="m_td">
-                        <div class="m_div">
-                            <p *ngFor="let m of log.audit_data.messages">
-                                {{m}}
-                            </p>
-                        </div>
-                    </td>
+                    <td><c-icon *ngIf="log.audit_data.messages['type']=='Warning'" name="cilWarning" size="xl"></c-icon>{{log.audit_data.messages['msg']}}</td>
+                    <td>{{log.audit_data.messages['matched_pattern']}}</td>
+                    <td>{{log.audit_data.messages['matched_data']}}</td>
+                    <td>{{log.audit_data.messages['severity']}}</td>
                 </tr>
             </tbody>
         </table>
