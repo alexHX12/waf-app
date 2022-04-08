@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SdkService } from '../sdk/sdk.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,10 +10,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProfileComponent implements OnInit {
   public visible = false;
+  public containerArr:any;
 
-  constructor(public auth: AuthService, private http: HttpClient) { }
+  constructor(public auth: AuthService, private http: HttpClient,public sdk:SdkService) { }
 
   ngOnInit(): void {
+    this.sdk.getContainers().subscribe(res=>{
+      this.containerArr=res;
+    });
   }
 
   changePassword() {

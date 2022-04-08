@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
-    getLog:function(req, res) {
+    getLog:function(req, res, next) {
         var formattedLog="[";
         var lines=fs.readFileSync("/vol/audit.log","ascii").split(/\r?\n/).slice(0, -1);
         for(var i=0;i<lines.length;i++){

@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 const container = new Schema(
   {
     // AUTO-GENERATED ID
+
+    user_id:{
+      type:String,
+      required:true
+    },
+
     domain: {
       type: String,
       required: true,

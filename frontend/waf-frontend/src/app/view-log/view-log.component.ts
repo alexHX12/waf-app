@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 // Import AuthService from the Auth0 Angular SDK to get access to the user
 import { AuthService } from '@auth0/auth0-angular';
+import { SdkService } from '../sdk/sdk.service';
 
 @Component({
   selector: 'app-view-log',
@@ -13,11 +14,11 @@ import { AuthService } from '@auth0/auth0-angular';
 export class ViewLogComponent implements OnInit {
   logData: any;
 
-  constructor(public auth: AuthService, private http: HttpClient) {
+  constructor(public auth: AuthService, private http: HttpClient,public sdk:SdkService) {
   }
 
   ngOnInit(): void {
-    this.http.get("http://api.localhost/logs").subscribe((res) => {
+    this.sdk.getLogs().subscribe(res=>{
       this.logData = res;
       this.logData.forEach((el: any) => {
         var datetime = Array(2);
@@ -27,7 +28,7 @@ export class ViewLogComponent implements OnInit {
         el.transaction.time=datetime;
       });
       this.logData=this.logData.filter((el:any)=>el.audit_data.messages!=undefined);//Non considero errori generici
-    })
+    });
   }
 
 }

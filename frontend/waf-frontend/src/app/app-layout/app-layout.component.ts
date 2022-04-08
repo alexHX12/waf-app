@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { INavData } from '@coreui/angular';
-import { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory,cilWarning } from '@coreui/icons';
+import { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
 import { AuthService } from '@auth0/auth0-angular';
+import { SdkService } from '../sdk/sdk.service';
+import { ContainerInfoService } from '../container-info/container-info.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-layout',
@@ -10,10 +13,10 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./app-layout.component.css'],
   providers: [IconSetService],
 })
-export class AppLayoutComponent {
+export class AppLayoutComponent implements OnDestroy {
   sidebarId: string = "sidebar";
   title = 'waf-frontend';
-  navItems:INavData[]=[
+  navItems: INavData[] = [
     {
       name: 'Gestisci regole',
       url: '/rules',
@@ -31,10 +34,10 @@ export class AppLayoutComponent {
     }
   ]
 
-  navItemsAdmin:INavData[]=[
+  navItemsAdmin: INavData[] = [
     {
-      name: 'Account',
-      url: '/accounts',
+      name: 'Utenti',
+      url: '/users',
       iconComponent: { name: 'cil-group' }
     },
     {
@@ -43,10 +46,50 @@ export class AppLayoutComponent {
       iconComponent: { name: 'cil-factory' }
     }
   ]
+  containerArr: any;
 
-  constructor(public iconSet: IconSetService,public auth: AuthService) {
-    // iconSet singleton
-    iconSet.icons = { cilGroup,cilUser,cilAccountLogout,cilMenu,cilShieldAlt,cilFire,cilFactory,cilWarning };
+  constructor(public iconSet: IconSetService, public auth: AuthService, public sdk: SdkService, public containerInfo: ContainerInfoService,public router:Router) {
+    this.auth.user$.subscribe(user => {
+      if (user != undefined) {
+        this.sdk.isAdmin = user['http://api.localhost/roles'].includes("admin");
+        // iconSet singleton
+        iconSet.icons = { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning };
+        this.sdk.getContainers().subscribe(res => {
+          this.containerArr = res;
+        })
+      }
+    });
+  }
+  ngOnDestroy() {
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
+
+  mySubscription:any;
+
+  selectContainer(event: any) {
+    if(event.target.value!="admin_rules"){
+      this.containerInfo.id = event.target.value;
+      this.containerInfo.domain = event.target.options[event.target.options.selectedIndex].text;
+      this.sdk.containerId = this.containerInfo.id;
+      this.sdk.adminMode=false;
+    }else{
+      this.containerInfo.id = "";
+      this.containerInfo.domain = "";
+      this.sdk.containerId = "";
+      this.sdk.adminMode=true;
+    }
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
+    this.router.navigate([this.router.url]);
   }
 
 }

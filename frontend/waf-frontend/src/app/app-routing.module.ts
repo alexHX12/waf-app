@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountsComponent } from './accounts/accounts.component';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
 import { ViewLogComponent } from './view-log/view-log.component';
 import { ViewContainerComponent } from './view-container/view-container.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { UsersComponent } from './users/users.component';
 
 const routes:Routes=[
   {
@@ -28,8 +28,8 @@ const routes:Routes=[
         component:ViewLogComponent
       },
       {
-        path:'accounts',
-        component:AccountsComponent,
+        path:'users',
+        component:UsersComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -47,7 +47,7 @@ const routes:Routes=[
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 

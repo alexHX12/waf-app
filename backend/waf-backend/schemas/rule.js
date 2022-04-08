@@ -5,6 +5,17 @@ const autoIncrement = require('mongoose-auto-increment');
 const rule = new Schema(
   {
     // AUTO-GENERATED ID
+
+    container_id:{
+      type: String,
+      required: false
+    },
+
+    isGlobal:{
+      type:Boolean,
+      required:true,
+    },
+
     name: {
       type: String,
       required: true,

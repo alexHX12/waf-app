@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SdkService } from '../sdk/sdk.service';
 
 @Component({
   selector: 'app-view-container',
@@ -13,12 +14,12 @@ export class ViewContainerComponent implements OnInit {
   containerDomain="";
   containerURL="";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public sdk:SdkService) { }
 
   ngOnInit(): void {
-    this.http.get("http://api.localhost/containers").subscribe((res)=>{
-        this.allContainers=res;
-      })
+    this.sdk.getContainers().subscribe(res=>{
+      this.allContainers=res;
+    });
   }
 
   newContainer(){
@@ -26,10 +27,10 @@ export class ViewContainerComponent implements OnInit {
     var data:any={};
     data['domain']=this.containerDomain;
     data['url']=this.containerURL;
-    this.http.post("http://api.localhost/containers", data, { headers: { 'content-type': 'application/json'}}).subscribe((res)=>{ 
-        this.allContainers.push(res);
-        this.toggleModal();
-      })
+    this.sdk.addContainer(data).subscribe(res=>{
+      this.allContainers.push(res);
+      this.toggleModal();
+    });
   }
 
   toggleModal(){
@@ -37,10 +38,10 @@ export class ViewContainerComponent implements OnInit {
   }
 
   deleteContainer(id:string,index:Number){
-    this.http.delete("http://api.localhost/containers/"+id).subscribe((res)=>{
-        this.allContainers.splice(index,1);
-        this.toggleModal();
-      })
+    this.sdk.deleteContainer(id).subscribe(res=>{
+      this.allContainers.splice(index,1);
+      this.toggleModal();
+    });
   }
 
 }

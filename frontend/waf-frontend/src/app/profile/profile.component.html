@@ -4,6 +4,14 @@
         <ng-container *ngIf="auth.user$ | async as user">
             <p>Nome:{{user.name}}</p>
             <p>Email:{{user.email}}</p>
+            <p>Ruolo:{{this.sdk.isAdmin?'Amministratore':'Utente di gestione'}}</p>
+            <ng-container *ngIf="!this.sdk.isAdmin">
+              <p>Container:
+                <ng-container *ngFor="let container of this.containerArr">
+                  {{container.domain}}
+                </ng-container>
+              </p>
+            </ng-container>
             <button (click)="changePassword()" cButton>Cambia password</button>
         </ng-container>
     </c-card-body>

@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports = {
-    getUsers: async function (req, res) {
+    getUsers: async function (req, res, next) {
         const api_mngmnt_token=(await require("../app").api_mngmnt_promise).data.access_token;
         const options2 = {
             method: "GET",

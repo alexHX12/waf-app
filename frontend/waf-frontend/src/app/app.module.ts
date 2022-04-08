@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { SidebarModule,GridModule,HeaderModule,NavModule,DropdownModule,TableModule,CardModule,ModalModule,ButtonModule,FormModule} from '@coreui/angular';
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
-import { AccountsComponent } from './accounts/accounts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RulesComponent } from './rules/rules.component';
 import { ViewLogComponent } from './view-log/view-log.component';
@@ -20,16 +19,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ViewContainerComponent } from './view-container/view-container.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppLayoutComponent,
-    AccountsComponent,
     ProfileComponent,
     RulesComponent,
     ViewLogComponent,
-    ViewContainerComponent
+    ViewContainerComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
