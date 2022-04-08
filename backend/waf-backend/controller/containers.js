@@ -1,12 +1,23 @@
 const { exec } = require('child_process');
 const fs = require('fs');
 const Container = require('../schemas/container');
+const axios = require("axios");
 
 module.exports = {
   //OK
   getContainers: async function (req, res, next) {
     if(req.isAdmin){
-      allContainers=await Container.find();
+      var allContainers=await Container.find().lean();//Oggetto JS di base
+      const api_mngmnt_token=(await require("../app").api_mngmnt_promise).data.access_token;
+      for(var i=0;i<allContainers.length;i++){
+        var options2 = {
+          method: "GET",
+          url: "https://dev-fmeenf3n.us.auth0.com/api/v2/users/"+allContainers[i].user_id,
+          headers: { "authorization": "Bearer " + api_mngmnt_token },
+        };
+        var res2=await axios(options2);
+        allContainers[i]['user_id']=res2.data;
+      }
     }else{
       allContainers=await Container.find({user_id:req.user.sub});
     }
@@ -16,12 +27,11 @@ module.exports = {
 
   //OK
   addContainer: async function (req, res, next) {
-    req.body['user_id']=req.user.sub;
     const newContainer = new Container(req.body);
     const result = await newContainer.save();
     domain=newContainer.domain;
     url=newContainer.url;
-    var container="Use VHost "+domain+" "+url+"\n"
+    var container="Use VHost "+domain+" http://"+url+"\n";
     fs.appendFileSync("/usr/local/apache2/conf/extra/httpd-vhosts.conf",container);
     res.contentType('application/json');
     res.status(200).send(result);

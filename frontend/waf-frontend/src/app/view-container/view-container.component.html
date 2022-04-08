@@ -7,6 +7,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Dominio</th>
                     <th scope="col">URL</th>
+                    <th scope="col">Utente di gestione</th>
                     <th scope="col">Gestione</th>
                 </tr>
             </thead>
@@ -15,6 +16,9 @@
                     <th scope="row">{{i+1}}</th>
                     <td>{{container.domain}}</td>
                     <td>{{container.url}}</td>
+                    <td>
+                        {{container.user_id.email}}
+                    </td>
                     <td>
                         <a href="http://{{container.domain}}">
                             <button cButton class="visit_domain_button">
@@ -34,14 +38,24 @@
 <c-card>
     <c-card-header>Aggiungi container</c-card-header>
     <c-card-body>
-        <form [gutter]="3" [validated]="newContainerFormValidated" cForm cRow class="needs-validation" (submit)="newContainer()" ngNativeValidate>
+        <form [gutter]="3" [validated]="newContainerFormValidated" cForm cRow class="needs-validation"
+            (submit)="newContainer($event)" ngNativeValidate>
             <c-col [md]="2">
                 <label cLabel for="containerDomain">Dominio</label>
-                <input cFormControl id="containerDomain" name="containerDomain" [(ngModel)]="containerDomain" required type="text" placeholder="Dominio" />
+                <input cFormControl id="containerDomain" name="containerDomain" [(ngModel)]="containerDomain" required
+                    type="text" placeholder="Dominio" />
             </c-col>
             <c-col [md]="2">
                 <label cLabel for="containerURL">URL</label>
-                <input cFormControl id="containerURL" name="containerURL" [(ngModel)]="containerURL" required type="text" placeholder="URL" />
+                <input cFormControl id="containerURL" name="containerURL" [(ngModel)]="containerURL" required
+                    type="text" placeholder="URL" />
+            </c-col>
+            <c-col [md]="2">
+                <label cLabel for="containerUser">Utente di gestione</label>
+                <select cSelect id="containerUser" name="containerUser" [(ngModel)]="containerUser" required>
+                    <option value="" selected disabled hidden>Scegli utente</option>
+                    <option *ngFor="let user of this.allUsers" value="{{user.user_id}}">{{user.email}}</option>
+                </select>
             </c-col>
             <c-col [xs]="12">
                 <button cButton class="me-1" color="primary" type="submit">
@@ -54,10 +68,10 @@
 
 <c-modal id="liveDemoModal" [visible]="visible">
     <c-modal-header>
-      <h5 cModalTitle>Conferma operazione</h5>
+        <h5 cModalTitle>Conferma operazione</h5>
     </c-modal-header>
     <c-modal-body>Operazione eseguita correttamente!</c-modal-body>
     <c-modal-footer>
-      <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
+        <button (click)="toggleModal()" cButton color="primary">Chiudi</button>
     </c-modal-footer>
-  </c-modal>
+</c-modal>

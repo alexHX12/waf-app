@@ -6,11 +6,11 @@
 
 #userInfo{
     padding: 0.5vw;
-    background-color: #086948;
+    background-color: #173753;
 }
 
 #sidebar,.header,.nav-link, #sidebarTButton, #h-warning{
-    background-color: #1a5875;
+    background-color: #2d3142;
     color: rgba(255,255,255,.6);
 }
 
@@ -19,26 +19,28 @@
 }
 
 #logoutButton{
-    background-color: rgba(241, 37, 14, 0.6);
+    background-color: #173753;
     border: none;
     color: rgba(255,255,255,.6);
     font-size: 1vw;
     padding: 0.5vw;
 }
 
-#userInfo svg{
-    margin-right: 0.3vw;
-}
-
 #userInfo p{
     text-align: center;
+    font-size: 95%;
     margin: 0px;
-    font-size: 1vw;
 }
 
 .wrapper {
     padding-left: var(--cui-sidebar-occupy-start);
+    height: 100%;
+    background-color: #fcfafa;
   }
+
+#selectContainer{
+    background-color: #fcfafa;
+}
 
 #content{
     margin: 1vw;
@@ -49,8 +51,9 @@
 }
 
 .div_text{
-    padding: 0.5vw;
+    padding: 0.25vw;
     text-align: center;
+    font-weight: bold;
 }
 
 .div_text p{

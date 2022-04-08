@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { INavData } from '@coreui/angular';
 import { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
@@ -6,6 +6,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { SdkService } from '../sdk/sdk.service';
 import { ContainerInfoService } from '../container-info/container-info.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-app-layout',
@@ -13,7 +14,7 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app-layout.component.css'],
   providers: [IconSetService],
 })
-export class AppLayoutComponent implements OnDestroy {
+export class AppLayoutComponent implements OnInit, OnDestroy {
   sidebarId: string = "sidebar";
   title = 'waf-frontend';
   navItems: INavData[] = [
@@ -49,17 +50,21 @@ export class AppLayoutComponent implements OnDestroy {
   containerArr: any;
 
   constructor(public iconSet: IconSetService, public auth: AuthService, public sdk: SdkService, public containerInfo: ContainerInfoService,public router:Router) {
-    this.auth.user$.subscribe(user => {
-      if (user != undefined) {
-        this.sdk.isAdmin = user['http://api.localhost/roles'].includes("admin");
-        // iconSet singleton
-        iconSet.icons = { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning };
-        this.sdk.getContainers().subscribe(res => {
-          this.containerArr = res;
-        })
-      }
-    });
+    document.documentElement.style.height="100%";
+    document.body.style.height="100%";
   }
+
+  async ngOnInit() {
+    // iconSet singleton
+    this.iconSet.icons = { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning };
+    var user:any=await firstValueFrom(this.auth.user$);
+    if (user != undefined) {
+      this.sdk.isAdmin = user['http://api.localhost/roles'].includes("admin");
+      var res2=await firstValueFrom(this.sdk.getContainers());
+      this.containerArr=res2;
+    }
+  }
+  
   ngOnDestroy() {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();

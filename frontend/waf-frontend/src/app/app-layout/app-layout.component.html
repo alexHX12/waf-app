@@ -3,9 +3,7 @@
     <c-sidebar-brand>WAF Admin Control Panel</c-sidebar-brand>
     <div id="userInfo">
       <p>
-        <c-icon name="cilUser" size="xl"></c-icon>
-        {{user.name}}<br>
-        {{this.sdk.isAdmin?'Amministratore':'Utente di gestione'}}
+        {{user.name+" -- "+(this.sdk.isAdmin?'Amministratore':'Utente di gestione')}}
       </p>
       <p *ngIf="this.containerInfo.domain!=''||(this.sdk.adminMode&&this.containerInfo.domain=='')">
         Container corrente:{{this.containerInfo.domain!=""?this.containerInfo.domain:"Regole generali"}}
@@ -20,7 +18,7 @@
       <p>Gestione WAF</p>
     </div>
     <c-sidebar-nav [navItems]="navItems"></c-sidebar-nav>
-    <ng-container *ngIf="user['http://api.localhost/roles'][0]=='admin'">
+    <ng-container *ngIf="this.sdk.isAdmin&&this.sdk.adminMode">
       <div class="div_text">
         <p>Amministrazione</p>
       </div>

@@ -13,6 +13,8 @@ export class ViewContainerComponent implements OnInit {
   allContainers:any;
   containerDomain="";
   containerURL="";
+  containerUser="";
+  allUsers:any;
 
   constructor(private http: HttpClient,public sdk:SdkService) { }
 
@@ -20,14 +22,22 @@ export class ViewContainerComponent implements OnInit {
     this.sdk.getContainers().subscribe(res=>{
       this.allContainers=res;
     });
+    this.sdk.getUsers().subscribe(res=>{
+      this.allUsers=res;
+      console.log(this.allUsers);
+    });
   }
 
-  newContainer(){
+  newContainer(event:any){
     this.newContainerFormValidated=true;
     var data:any={};
     data['domain']=this.containerDomain;
     data['url']=this.containerURL;
-    this.sdk.addContainer(data).subscribe(res=>{
+    data['user_id']=this.containerUser;
+    console.log(data['user_id']);
+    this.sdk.addContainer(data).subscribe((res:any)=>{
+      res['user_id']={_id:res['user_id']};
+      res['user_id'].email=event.target[2].options[event.target[2].options.selectedIndex].text;;
       this.allContainers.push(res);
       this.toggleModal();
     });

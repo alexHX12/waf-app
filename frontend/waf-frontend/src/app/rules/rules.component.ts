@@ -20,7 +20,9 @@ export class RulesComponent implements OnInit {
   rulePhase:string="";
   ruleAction:string="";
 
-  constructor(public auth: AuthService,private http: HttpClient,public sdk:SdkService,public containerInfo:ContainerInfoService) { }
+  constructor(public auth: AuthService,private http: HttpClient,public sdk:SdkService,public containerInfo:ContainerInfoService) { 
+    
+  }
 
   ngOnInit(): void {
     this.sdk.getRules().subscribe(res=>{
