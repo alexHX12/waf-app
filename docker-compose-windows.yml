@@ -39,6 +39,9 @@ services:
             - C:\Users\alex\Desktop\WAF Project\backend\vol:/vol
             - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
             - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
+        networks:
+            - default
+            - waf-network
         environment:
             PROXY: 1
             PROXY_SSL: "on"
@@ -48,3 +51,7 @@ services:
             ALLOWED_METHODS: "GET HEAD POST OPTIONS DELETE PUT PATCH"
 volumes:
     waf-db:
+networks:
+    default:
+    waf-network:
+        name: "waf-network"

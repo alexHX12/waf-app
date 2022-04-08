@@ -17,7 +17,7 @@
             <tbody>
                 <tr *ngFor="let log of logData;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{log.transaction.local_address+":"+log.transaction.local_port}}</td>
+                    <td>{{log.request.headers.Host+":"+log.transaction.local_port}}</td>
                     <td>{{log.transaction.remote_address+":"+log.transaction.remote_port}}</td>
                     <td>Data:{{log.transaction.time[0]}}<br>Ora:{{log.transaction.time[1]}}</td>
                     <td><c-icon *ngIf="log.audit_data.messages['type']=='Warning'" name="cilWarning" size="xl"></c-icon>{{log.audit_data.messages['msg']}}</td>

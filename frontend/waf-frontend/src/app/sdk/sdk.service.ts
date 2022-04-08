@@ -16,7 +16,6 @@ export class SdkService {
 
   private checkAdmin(path:string){
     var res=path;
-    console.log(this.isAdmin);
     if(this.adminMode||(this.isAdmin&&path=="/containers")){
       res="/admin"+path;
     }else if(path!="/containers"){

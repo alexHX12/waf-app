@@ -43,6 +43,7 @@
 }
 
 #content{
+    height: 100%;
     margin: 1vw;
 }
 
@@ -58,4 +59,14 @@
 
 .div_text p{
     margin: 0px;
+}
+
+#notSelContDiv{
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 300%;
+    font-weight: bold;
+    color: lightgray;
 }

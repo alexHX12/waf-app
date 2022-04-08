@@ -1,7 +1,8 @@
 const fs = require('fs');
+const Container = require('../schemas/container');
 
 module.exports = {
-    getLog:function(req, res, next) {
+    getLog: async function(req, res, next) {
         var formattedLog="[";
         var lines=fs.readFileSync("/vol/audit.log","ascii").split(/\r?\n/).slice(0, -1);
         for(var i=0;i<lines.length;i++){
@@ -13,6 +14,10 @@ module.exports = {
         }
         formattedLog+="]";
         result=JSON.parse(formattedLog);
+        if(!req.isAdmin){
+            containerDomain=(await Container.findById(req.params.containerId)).domain;
+            result=result.filter(el=>el.request.headers.Host==containerDomain);
+        }
         result.map(el => {
             messages=el.audit_data.messages;
             if(messages!=undefined){

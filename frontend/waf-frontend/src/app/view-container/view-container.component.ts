@@ -24,7 +24,6 @@ export class ViewContainerComponent implements OnInit {
     });
     this.sdk.getUsers().subscribe(res=>{
       this.allUsers=res;
-      console.log(this.allUsers);
     });
   }
 
@@ -34,7 +33,6 @@ export class ViewContainerComponent implements OnInit {
     data['domain']=this.containerDomain;
     data['url']=this.containerURL;
     data['user_id']=this.containerUser;
-    console.log(data['user_id']);
     this.sdk.addContainer(data).subscribe((res:any)=>{
       res['user_id']={_id:res['user_id']};
       res['user_id'].email=event.target[2].options[event.target[2].options.selectedIndex].text;;
