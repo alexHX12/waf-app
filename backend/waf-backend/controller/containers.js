@@ -6,7 +6,7 @@ const axios = require("axios");
 module.exports = {
   //OK
   getContainers: async function (req, res, next) {
-    if(req.isAdmin){
+    if(req.isAdmin&&req.adminMode){
       var allContainers=await Container.find().lean();//Oggetto JS di base
       const api_mngmnt_token=(await require("../app").api_mngmnt_promise).data.access_token;
       for(var i=0;i<allContainers.length;i++){
@@ -51,6 +51,7 @@ module.exports = {
   //OK
   deleteContainer: async function(req, res, next){
     const result=await Container.findByIdAndDelete(req.params.containerId);
+    result.url="http://"+result.url;
     result.url=result.url.replace(/\//g, "\\/");
     exec("echo \"$(sed \"/Use VHost "+result.domain+" "+result.url+"/d\" /usr/local/apache2/conf/extra/httpd-vhosts.conf)\" > /usr/local/apache2/conf/extra/httpd-vhosts.conf",(error, stdout, stderr) => {
       if (error) {

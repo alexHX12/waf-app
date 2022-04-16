@@ -12,7 +12,9 @@ let options = {
 
 setAdminPermission= function(isAdminRoute){
   return function(req,res,next){
-    req.isAdmin=req.user['http://api.localhost/roles'].includes("admin")&&isAdminRoute;
+    req.isAdmin=req.user['http://api.localhost/roles'].includes("admin");
+    req.adminMode=isAdminRoute;
+    req.authorized=true;//Errore di permessi per controlli futuri
     next();
   }
 }
@@ -73,7 +75,7 @@ POST NO
 PATCH NO
 DELETE NO 
 */
-router.get('/containers/:containerId/logs',jwtScope('read:logs_admin read:logs_user',options), setAdminPermission(false),logController.getLog);
+router.get('/containers/:containerId/logs',jwtScope('read:logs_user',options), setAdminPermission(false),logController.getLog);
 /*
 Rules:
 
@@ -85,9 +87,9 @@ Rules:
     - PATCH ...
     - DELETE OK
 */
-router.get('/containers/:containerId/rules',jwtScope('read:rules_admin read:rules_user',options), setAdminPermission(false), rulesController.getRules);
-router.post('/containers/:containerId/rules',jwtScope('create:rules_admin create:rules_user',options), setAdminPermission(false), rulesController.addRule);
-router.delete('/containers/:containerId/rules/:ruleId',jwtScope('delete:rules_admin delete:rules_user',options), setAdminPermission(false),rulesController.deleteRule);
+router.get('/containers/:containerId/rules',jwtScope('read:rules_user',options), setAdminPermission(false), rulesController.getRules);
+router.post('/containers/:containerId/rules',jwtScope('create:rules_user',options), setAdminPermission(false), rulesController.addRule);
+router.delete('/containers/:containerId/rules/:ruleId',jwtScope('delete:rules_user',options), setAdminPermission(false),rulesController.deleteRule);
 /*
 Containers:
 

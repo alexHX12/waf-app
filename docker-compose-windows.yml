@@ -40,8 +40,9 @@ services:
             - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
             - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
         networks:
-            - default
-            - waf-network
+            default:
+            waf-network:
+                ipv4_address: 172.20.0.10
         environment:
             PROXY: 1
             PROXY_SSL: "on"
@@ -53,5 +54,13 @@ volumes:
     waf-db:
 networks:
     default:
+        ipam:
+            config:
+                - subnet: "172.16.0.0/16"
+                  gateway: "172.16.0.1"
     waf-network:
         name: "waf-network"
+        ipam:
+            config:
+                - subnet: "172.20.0.0/16"
+                  gateway: "172.20.0.1"
