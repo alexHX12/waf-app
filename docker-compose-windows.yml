@@ -24,9 +24,9 @@ services:
         image: httpd
         restart: always
         volumes:
-            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend\dist\waf-frontend:/waf-frontend
-            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend-httpd.conf:/usr/local/apache2/conf/httpd.conf
-            - C:\Users\alex\Desktop\WAF Project\frontend\waf-frontend-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend\dist\waf-frontend:/waf-frontend
+            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend-httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
 
     waf-backend:
         build:
@@ -36,9 +36,9 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - C:\Users\alex\Desktop\WAF Project\backend\vol:/vol
-            - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-            - C:\Users\alex\Desktop\WAF Project\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
+            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\vol:/vol
+            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
         networks:
             default:
             waf-network:

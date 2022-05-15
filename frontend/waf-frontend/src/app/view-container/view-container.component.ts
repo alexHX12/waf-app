@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SdkService } from '../sdk/sdk.service';
+import { ConfirmationDialogService } from '../info-dialog/info-dialog.service';
 
 @Component({
   selector: 'app-view-container',
@@ -8,7 +9,6 @@ import { SdkService } from '../sdk/sdk.service';
   styleUrls: ['./view-container.component.css']
 })
 export class ViewContainerComponent implements OnInit {
-  visible=false;
   newContainerFormValidated=false;
   allContainers:any;
   containerDomain="";
@@ -16,7 +16,7 @@ export class ViewContainerComponent implements OnInit {
   containerUser="";
   allUsers:any;
 
-  constructor(private http: HttpClient,public sdk:SdkService) { }
+  constructor(private http: HttpClient,public sdk:SdkService,public confirmationDialog:ConfirmationDialogService) { }
 
   ngOnInit(): void {
     this.sdk.getContainers().subscribe(res=>{
@@ -37,18 +37,14 @@ export class ViewContainerComponent implements OnInit {
       res['user_id']={_id:res['user_id']};
       res['user_id'].email=event.target[2].options[event.target[2].options.selectedIndex].text;;
       this.allContainers.push(res);
-      this.toggleModal();
+      this.confirmationDialog.openDefaultSuccess();
     });
-  }
-
-  toggleModal(){
-    this.visible = !this.visible;
   }
 
   deleteContainer(id:string,index:Number){
     this.sdk.deleteContainer(id).subscribe(res=>{
       this.allContainers.splice(index,1);
-      this.toggleModal();
+      this.confirmationDialog.openDefaultSuccess();
     });
   }
 

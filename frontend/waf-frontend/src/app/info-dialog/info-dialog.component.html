@@ -1,0 +1,10 @@
+<c-modal [visible]="true">
+    <c-modal-header>
+        <h5 cModalTitle>{{title}}</h5>
+        <button (click)="dismiss()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>{{message}}</c-modal-body>
+    <c-modal-footer>
+        <button (click)="accept()" cButton color="primary">Ok</button>
+    </c-modal-footer>
+</c-modal>

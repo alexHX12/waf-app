@@ -1,5 +1,5 @@
 const fs = require('fs');
-const Container = require('../schemas/container');
+const Container = require('../../schemas/container');
 
 module.exports = {
     getLog: async function(req, res, next) {

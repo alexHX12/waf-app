@@ -25,6 +25,7 @@
     "@coreui/coreui": "^4.1.3",
     "@coreui/icons": "^2.1.0",
     "@coreui/icons-angular": "^3.0.0-alpha.4",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.1",
     "bootstrap": "^5.1.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

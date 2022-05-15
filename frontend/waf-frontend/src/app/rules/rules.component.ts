@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { SdkService } from '../sdk/sdk.service';
 import { ContainerInfoService } from '../container-info/container-info.service';
+import { ConfirmationDialogService } from '../info-dialog/info-dialog.service';
 
 @Component({
   selector: 'app-rules',
@@ -10,7 +11,6 @@ import { ContainerInfoService } from '../container-info/container-info.service';
   styleUrls: ['./rules.component.css']
 })
 export class RulesComponent implements OnInit {
-  visible=false;
   newRuleFormValidated=false;
   showSelectContainer=true;
   allRules:any;
@@ -20,7 +20,7 @@ export class RulesComponent implements OnInit {
   rulePhase:string="";
   ruleAction:string="";
 
-  constructor(public auth: AuthService,private http: HttpClient,public sdk:SdkService,public containerInfo:ContainerInfoService) { 
+  constructor(public auth: AuthService,private http: HttpClient,public sdk:SdkService,public containerInfo:ContainerInfoService,public confirmationDialog:ConfirmationDialogService) { 
     
   }
 
@@ -41,18 +41,17 @@ export class RulesComponent implements OnInit {
     data['container_id']=this.containerInfo.id;
     this.sdk.addRule(data).subscribe((res)=>{
       this.allRules.custom.push(res);
-      this.toggleModal();
+      this.confirmationDialog.openDefaultSuccess();
+    },err=>{
+      console.log("Regola non valida!");
+      this.confirmationDialog.open("Errore","La regola inserita non è valida!");
     });
-  }
-
-  toggleModal(){
-    this.visible = !this.visible;
   }
 
   deleteRule(id:string,index:Number){
     this.sdk.deleteRule(id).subscribe(res=>{
       this.allRules.custom.splice(index,1);
-      this.toggleModal();
+      this.confirmationDialog.openDefaultSuccess();
     });
   }
 }
