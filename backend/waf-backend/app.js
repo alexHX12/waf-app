@@ -7,6 +7,7 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 const { dbConnection } = require("./dbConnection");
 const autoIncrement = require('mongoose-auto-increment');
+const axios=require('axios');
 
 dbConnection.connectToDB();
 autoIncrement.initialize(dbConnection.db);
@@ -23,26 +24,24 @@ var jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-var rootRouter = require('./routes/root');
+var adminRouter = require('./routes/admin');
+var userRouter = require('./routes/user');
 
 var app = express();
-
-const axios = require("axios");
 
 const options = {
   method: 'POST',
   url: 'https://dev-fmeenf3n.us.auth0.com/oauth/token',
   headers: { 'content-type': 'application/json' },
   data: {
-    client_id:"2BPjToNJXwRYL6NPMxz3nYiTeuZEWZ4y",
-    client_secret:"mjRDkqncXBJxKJ58gUOc0MdO7QXBMJusQJOK4Tf3ZegEKQHyWcyz_psMih4jsN5X",
-    audience:"https://dev-fmeenf3n.us.auth0.com/api/v2/",
-    grant_type:"client_credentials"
+      client_id: "2BPjToNJXwRYL6NPMxz3nYiTeuZEWZ4y",
+      client_secret: "mjRDkqncXBJxKJ58gUOc0MdO7QXBMJusQJOK4Tf3ZegEKQHyWcyz_psMih4jsN5X",
+      audience: "https://dev-fmeenf3n.us.auth0.com/api/v2/",
+      grant_type: "client_credentials"
   }
 };
 
-
-var api_mngmnt_promise=axios(options);
+global.mngmnt_token=axios(options);//Promise
 
 app.use(jwtCheck);
 app.use(logger('dev'));
@@ -50,7 +49,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', rootRouter);
+app.use('/admin', adminRouter);
+app.use('/', userRouter);
 
 
 // catch 404 and forward to error handler
@@ -71,4 +71,4 @@ app.use(function (err, req, res, next) {
   });
 });
 
-module.exports = {app,api_mngmnt_promise};
+module.exports = app;

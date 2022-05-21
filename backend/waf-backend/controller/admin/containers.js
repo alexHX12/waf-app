@@ -1,4 +1,3 @@
-const { exec } = require('child_process');
 const fs = require('fs');
 const Container = require('../../schemas/container');
 const axios = require("axios");
@@ -7,7 +6,7 @@ const util = require('../../util/cmd');
 module.exports = {
   getContainers: async function (req, res, next) {
     var allContainers = await Container.find().lean();//Oggetto JS di base
-    const api_mngmnt_token = (await require("../../app").api_mngmnt_promise).data.access_token;
+    const api_mngmnt_token = (await mngmnt_token).data.access_token;
     for (var i = 0; i < allContainers.length; i++) {
       var options2 = {
         method: "GET",
