@@ -9,26 +9,15 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: test
-
-    mongo-express:
-        image: mongo-express
-        restart: always
-        ports:
-        - 8081:8081
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: root
-            ME_CONFIG_MONGODB_ADMINPASSWORD: test
-            ME_CONFIG_MONGODB_URL: mongodb://root:test@mongo:27017/
     
     waf-frontend:
-        image: httpd
+        image: waf-frontend
+        build:
+            context: .\frontend\
         restart: always
-        volumes:
-            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend\dist\waf-frontend:/waf-frontend
-            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend-httpd.conf:/usr/local/apache2/conf/httpd.conf
-            - C:\Users\alex\Desktop\WAF Project\waf-app\frontend\waf-frontend-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
 
     waf-backend:
+        image: waf-backend
         build:
             context: .\backend\
         restart: always
@@ -36,9 +25,9 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\vol:/vol
-            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-            - C:\Users\alex\Desktop\WAF Project\waf-app\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
+            - .\backend\vol:/vol
+            - .\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+            - .\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
         networks:
             default:
             waf-network:
