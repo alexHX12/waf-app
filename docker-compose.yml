@@ -25,9 +25,7 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - .\backend\vol:/vol
-            - .\backend\waf-httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-            - .\backend\waf-httpd-custom.conf:/usr/local/apache2/conf/extra/waf-custom.conf
+            - waf-backend-data:/vol
         networks:
             default:
             waf-network:
@@ -41,6 +39,7 @@ services:
             ALLOWED_METHODS: "GET HEAD POST OPTIONS DELETE PUT PATCH"
 volumes:
     waf-db:
+    waf-backend-data:
 networks:
     default:
         ipam:

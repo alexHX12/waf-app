@@ -42,7 +42,7 @@ module.exports = {
       action = newRule.action;
       msg = newRule.desc;
       var rule = req.body.text + " \"id:" + id + ",phase:" + phase + ",t:none,t:lowercase," + action + ",status:403,log," + "msg:'" + msg + "'\"\n";
-      fs.appendFileSync("/usr/local/apache2/conf/extra/waf-custom.conf", rule);
+      fs.appendFileSync("/vol/waf-custom.conf", rule);
       res.contentType('application/json');
       res.status(200).send(result);
       util.restart_apache();
@@ -52,7 +52,7 @@ module.exports = {
   deleteRule: async function (req, res, next) {
     const result = await Rule.findByIdAndDelete(req.params.ruleId);
     rule = result.text.replace(/\./g, "\\.").replace(/\"/g, "\\\"") + " \\\"id:" + result._id + ",phase:" + result.phase + ",t:none,t:lowercase," + result.action + ",status:403,log," + "msg:'" + result.desc + "'\\\"";
-    cmd = "echo \"$(sed \"/" + rule + "/d\" /usr/local/apache2/conf/extra/waf-custom.conf)\" > /usr/local/apache2/conf/extra/waf-custom.conf";
+    cmd = "echo \"$(sed \"/" + rule + "/d\" /vol/waf-custom.conf)\" > /vol/waf-custom.conf";
     util.cmd_exec(cmd);
     res.status(200).send(result);
     util.restart_apache();
