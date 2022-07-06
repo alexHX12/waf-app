@@ -18,10 +18,10 @@ var jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: process.env.clientID.domain+'/.well-known/jwks.json'
+    jwksUri: process.env.domain+'/.well-known/jwks.json'
   }),
   audience: process.env.backendURL,
-  issuer: process.env.clientID.domain,
+  issuer: process.env.domain,
   algorithms: ['RS256']
 });
 
@@ -33,9 +33,14 @@ var app = express();
 
 const options = {
   method: 'POST',
-  url: process.env.clientID.domain+'/oauth/token',
+  url: process.env.domain+'/oauth/token',
   headers: { 'content-type': 'application/json' },
-  data: process.clientID.data
+  data: {
+        client_id: process.env.client_id,
+        client_secret: process.env.client_secret,
+        audience: process.env.domain+"/api/v2/",
+        grant_type: "client_credentials"
+    }
 };
 
 global.mngmnt_token=axios(options);//Promise

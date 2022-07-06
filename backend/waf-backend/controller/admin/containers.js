@@ -10,7 +10,7 @@ module.exports = {
     for (var i = 0; i < allContainers.length; i++) {
       var options2 = {
         method: "GET",
-        url: process.env.clientID.domain+"/api/v2/users/" + allContainers[i].user_id,
+        url: process.env.domain+"/api/v2/users/" + allContainers[i].user_id,
         headers: { "authorization": "Bearer " + api_mngmnt_token },
       };
       var res2 = await axios(options2);

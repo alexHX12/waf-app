@@ -5,7 +5,7 @@ module.exports = {
         const api_mngmnt_token=(await mngmnt_token).data.access_token;
         const options2 = {
             method: "GET",
-            url: process.env.clientID.domain+"/api/v2/users",
+            url: process.env.domain+"/api/v2/users",
             headers: { "authorization": "Bearer " + api_mngmnt_token },
         };
         axios(options2)
