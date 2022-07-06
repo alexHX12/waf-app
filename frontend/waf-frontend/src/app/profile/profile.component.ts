@@ -3,6 +3,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SdkService } from '../sdk/sdk.service';
 import { ConfirmationDialogService } from '../info-dialog/info-dialog.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -22,8 +23,8 @@ export class ProfileComponent implements OnInit {
 
   changePassword() {
     this.auth.user$.subscribe((user) => {
-      this.http.post("https://dev-fmeenf3n.us.auth0.com/dbconnections/change_password", {
-        client_id: 'PQuVo6cmELKpqSWA8FhuQinoREXfufWU',
+      this.http.post(environment.clientID.domain+"/dbconnections/change_password", {
+        client_id: environment.clientID.clientId,
         email: user?.email,
         connection: 'Username-Password-Authentication'
       }, { headers: { 'content-type': 'application/json'},responseType:"text"}).subscribe((res)=>{

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SdkService {
-  private url = 'http://api.localhost';
+  private url = environment.backendURL;
   public isAdmin: boolean = false;
   public adminMode:boolean=false;
   public containerId:string="";

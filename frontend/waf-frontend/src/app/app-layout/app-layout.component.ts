@@ -7,6 +7,7 @@ import { SdkService } from '../sdk/sdk.service';
 import { ContainerInfoService } from '../container-info/container-info.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-app-layout',
@@ -15,6 +16,7 @@ import { firstValueFrom } from 'rxjs';
   providers: [IconSetService],
 })
 export class AppLayoutComponent implements OnInit, OnDestroy {
+  localURL=environment.localURL;
   sidebarId: string = "sidebar";
   title = 'waf-frontend';
   navItems: INavData[] = [
@@ -59,7 +61,7 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     this.iconSet.icons = { cilGroup, cilUser, cilAccountLogout, cilMenu, cilShieldAlt, cilFire, cilFactory, cilWarning };
     var user:any=await firstValueFrom(this.auth.user$);
     if (user != undefined) {
-      this.sdk.isAdmin = user['http://api.localhost/roles'].includes("admin");
+      this.sdk.isAdmin = user[environment.backendURL+'/roles'].includes("admin");
       var res2=await firstValueFrom(this.sdk.getContainers());
       this.containerArr=res2;
     }

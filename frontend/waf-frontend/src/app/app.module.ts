@@ -21,6 +21,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ViewContainerComponent } from './view-container/view-container.component';
 import { UsersComponent } from './users/users.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { environment } from './../environments/environment';
 
 @NgModule({
   declarations: [
@@ -52,21 +53,7 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
     FormModule,
     FormsModule,
     // Import the module into the application, with configuration
-    AuthModule.forRoot({
-      domain: 'dev-fmeenf3n.us.auth0.com',
-      clientId: 'PQuVo6cmELKpqSWA8FhuQinoREXfufWU',
-      audience:'http://api.localhost',
-      httpInterceptor: {
-        allowedList: [
-          {
-            uri: 'http://api.localhost/*',
-            tokenOptions: {
-              audience: 'http://api.localhost'
-            }
-          }
-        ]
-      }
-    }),
+    AuthModule.forRoot(environment.clientID),
     HttpClientModule
   ],
   providers: [

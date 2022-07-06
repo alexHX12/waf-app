@@ -8,6 +8,7 @@ var jwks = require('jwks-rsa');
 const { dbConnection } = require("./dbConnection");
 const autoIncrement = require('mongoose-auto-increment');
 const axios=require('axios');
+require('dotenv').config();
 
 dbConnection.connectToDB();
 autoIncrement.initialize(dbConnection.db);
@@ -17,28 +18,24 @@ var jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://dev-fmeenf3n.us.auth0.com/.well-known/jwks.json'
+    jwksUri: process.env.clientID.domain+'/.well-known/jwks.json'
   }),
-  audience: 'http://api.localhost',
-  issuer: 'https://dev-fmeenf3n.us.auth0.com/',
+  audience: process.env.backendURL,
+  issuer: process.env.clientID.domain,
   algorithms: ['RS256']
 });
 
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/user');
+const { copyFile } = require('fs');
 
 var app = express();
 
 const options = {
   method: 'POST',
-  url: 'https://dev-fmeenf3n.us.auth0.com/oauth/token',
+  url: process.env.clientID.domain+'/oauth/token',
   headers: { 'content-type': 'application/json' },
-  data: {
-      client_id: "2BPjToNJXwRYL6NPMxz3nYiTeuZEWZ4y",
-      client_secret: "mjRDkqncXBJxKJ58gUOc0MdO7QXBMJusQJOK4Tf3ZegEKQHyWcyz_psMih4jsN5X",
-      audience: "https://dev-fmeenf3n.us.auth0.com/api/v2/",
-      grant_type: "client_credentials"
-  }
+  data: process.clientID.data
 };
 
 global.mngmnt_token=axios(options);//Promise

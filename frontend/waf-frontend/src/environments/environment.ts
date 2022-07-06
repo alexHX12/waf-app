@@ -3,7 +3,24 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendURL: "http://api.localhost",
+  localURL: "http://gestione.localhost",
+  clientID:{
+    domain: 'dev-fmeenf3n.us.auth0.com',
+    clientId: 'PQuVo6cmELKpqSWA8FhuQinoREXfufWU',
+    audience:'http://api.localhost',
+    httpInterceptor: {
+      allowedList: [
+        {
+          uri: 'http://api.localhost/*',
+          tokenOptions: {
+            audience: 'http://api.localhost'
+          }
+        }
+      ]
+    }
+  }
 };
 
 /*

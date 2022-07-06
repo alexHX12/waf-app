@@ -12,7 +12,7 @@ let options = {
 
 setAdminPermission = function (isAdminRoute) {
   return function (req, res, next) {
-    req.isAdmin = req.user['http://api.localhost/roles'].includes("admin");
+    req.isAdmin = req.user[process.env.backendURL+'/roles'].includes("admin");
     req.adminMode = isAdminRoute;
     req.authorized = true;//Errore di permessi per controlli futuri
     next();

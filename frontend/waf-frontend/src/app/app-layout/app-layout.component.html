@@ -24,7 +24,7 @@
       </div>
       <c-sidebar-nav [navItems]="navItemsAdmin"></c-sidebar-nav>
     </ng-container>
-    <button id="logoutButton" (click)="auth.logout({ returnTo: 'http://gestione.localhost' })">
+    <button id="logoutButton" (click)="auth.logout({ returnTo: localURL})">
       <c-icon name="cilAccountLogout" size="lg"></c-icon>Log out
     </button>
   </c-sidebar>
