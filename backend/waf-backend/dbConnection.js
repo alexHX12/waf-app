@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 class dbConnection {
   static db = null;
   static admin = null;
-  static url = "mongodb://root:test@mongo:27017/waf?authSource=admin";
+  static url = "mongodb://root:test@"+process.env.db+":27017/waf?authSource=admin";
   static options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,

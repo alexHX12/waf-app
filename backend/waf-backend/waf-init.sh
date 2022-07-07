@@ -25,5 +25,12 @@ grep -oP '(?<=Use VHost ).*?(?=http)' /vol/waf-vhosts.conf | while read -r VHost
     fi
 done
 
+grep -oP '(?<=Use VHostSSL ).*?(?=http)' /vol/waf-vhosts.conf | while read -r VHostName; do
+    if [ ! -e /vol/vhosts-custom-rules/$VHostName ]
+    then
+        touch /vol/vhosts-custom-rules/$VHostName.conf
+    fi
+done
+
 npm start &
 apachectl -D FOREGROUND

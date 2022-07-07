@@ -8,5 +8,7 @@ RUN apt-get install nodejs -y
 COPY ./waf-backend /waf-backend
 COPY ./waf-httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ./waf-httpd-vhosts.conf /tmp/waf-vhosts-orig.conf
+COPY ./fullchain.pem /usr/local/apache2/conf/fullchain.pem
+COPY ./privkey.pem /usr/local/apache2/conf/privkey.pem
 
 CMD /waf-backend/waf-init.sh

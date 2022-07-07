@@ -5,10 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
-const { dbConnection } = require("./dbConnection");
 const autoIncrement = require('mongoose-auto-increment');
 const axios=require('axios');
 require('dotenv').config();
+const { dbConnection } = require("./dbConnection");
 
 dbConnection.connectToDB();
 autoIncrement.initialize(dbConnection.db);
