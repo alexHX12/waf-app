@@ -18,7 +18,7 @@ var jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: process.env.domain+'/.well-known/jwks.json'
+    jwksUri: process.env.domain+'.well-known/jwks.json'
   }),
   audience: process.env.backendURL,
   issuer: process.env.domain,
@@ -33,12 +33,12 @@ var app = express();
 
 const options = {
   method: 'POST',
-  url: process.env.domain+'/oauth/token',
+  url: process.env.domain+'oauth/token',
   headers: { 'content-type': 'application/json' },
   data: {
         client_id: process.env.client_id,
         client_secret: process.env.client_secret,
-        audience: process.env.domain+"/api/v2/",
+        audience: process.env.domain+"api/v2/",
         grant_type: "client_credentials"
     }
 };
