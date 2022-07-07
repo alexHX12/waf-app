@@ -14,7 +14,7 @@ import { ViewLogComponent } from './view-log/view-log.component';
 // Import the module from the SDK
 import { AuthModule } from '@auth0/auth0-angular';
 // Import the injector module and the HTTP client module from Angular
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
@@ -58,7 +58,7 @@ import { environment } from './../environments/environment';
   ],
   providers: [
     IconSetService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

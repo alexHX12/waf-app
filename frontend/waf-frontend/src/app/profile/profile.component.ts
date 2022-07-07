@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
 
   changePassword() {
     this.auth.user$.subscribe((user) => {
-      this.http.post(environment.clientID.domain+"/dbconnections/change_password", {
+      this.http.post("https://"+environment.clientID.domain+"/dbconnections/change_password", {
         client_id: environment.clientID.clientId,
         email: user?.email,
         connection: 'Username-Password-Authentication'
