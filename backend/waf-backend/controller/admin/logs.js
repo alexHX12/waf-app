@@ -18,8 +18,10 @@ module.exports = {
             if (messages != undefined) {
                 el.audit_data.messages = {};
                 el.audit_data.messages['type'] = messages[0].split(".")[0];
-                el.audit_data.messages['matched_pattern'] = messages[1].split(".")[1];
-                el.audit_data.messages['matched_pattern'] = el.audit_data.messages['matched_pattern'].substring(el.audit_data.messages['matched_pattern'].indexOf("\"") + 1, el.audit_data.messages['matched_pattern'].lastIndexOf("\""));
+                if(messages[1]!=undefined){
+                    el.audit_data.messages['matched_pattern'] = messages[1].split(".")[1];
+                    el.audit_data.messages['matched_pattern'] = el.audit_data.messages['matched_pattern'].substring(el.audit_data.messages['matched_pattern'].indexOf("\"") + 1, el.audit_data.messages['matched_pattern'].lastIndexOf("\""));
+                }
                 msg_tmp = messages[0].split("[");
                 msg_string = "";
                 m_data_string = "";
