@@ -14,6 +14,7 @@ env:
   ECS_BACKEND_SERVICE: WafAppFrontendService
   ECS_TEST_APP_SERVICE: WafAppFrontendService
   ECS_CLUSTER: WafAppCluster
+  DOCKER_DEFAULT_PLATFORM: linux/arm64
 
 jobs:
   deploy:
