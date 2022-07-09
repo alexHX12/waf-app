@@ -18,6 +18,7 @@ export class RulesComponent implements OnInit {
   ruleDesc:string="";
   ruleText:string="";
   rulePhase:string="";
+  ruleSeverity:string="";
   ruleAction:string="";
 
   constructor(public auth: AuthService,private http: HttpClient,public sdk:SdkService,public containerInfo:ContainerInfoService,public confirmationDialog:ConfirmationDialogService) { 
@@ -37,6 +38,7 @@ export class RulesComponent implements OnInit {
     data['desc']=this.ruleDesc;
     data['text']=this.ruleText;
     data['phase']=this.rulePhase;
+    data['severity']=this.ruleSeverity;
     data['action']=this.ruleAction;
     data['container_id']=this.containerInfo.id;
     this.sdk.addRule(data).subscribe((res)=>{

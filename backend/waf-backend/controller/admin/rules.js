@@ -39,9 +39,10 @@ module.exports = {
       const result = await newRule.save();
       id = newRule._id;
       phase = newRule.phase;
+      severity=newRule.severity;
       action = newRule.action;
       msg = newRule.desc;
-      var rule = req.body.text + " \"id:" + id + ",phase:" + phase + ",t:none,t:lowercase," + action + ",status:403,log," + "msg:'" + msg + "'\"\n";
+      var rule = req.body.text + " \"id:" + id + ",phase:" + phase + ",t:none,t:lowercase," + action + ",status:403,log," + "msg:'" + msg + "',severity:'"+severity+"'\"\n";
       fs.appendFileSync("/vol/waf-custom.conf", rule);
       res.contentType('application/json');
       res.status(200).send(result);
@@ -51,8 +52,9 @@ module.exports = {
 
   deleteRule: async function (req, res, next) {
     const result = await Rule.findByIdAndDelete(req.params.ruleId);
-    rule = result.text.replace(/\./g, "\\.").replace(/\"/g, "\\\"") + " \\\"id:" + result._id + ",phase:" + result.phase + ",t:none,t:lowercase," + result.action + ",status:403,log," + "msg:'" + result.desc + "'\\\"";
+    rule = result.text.replace(/\./g, "\\.").replace("/","\\/").replace(/\"/g, "\\\"") + " \\\"id:" + result._id + ",phase:" + result.phase + ",t:none,t:lowercase," + result.action + ",status:403,log," + "msg:'" + result.desc + "',severity:'"+result.severity+"'\\\"";
     cmd = "echo \"$(sed \"/" + rule + "/d\" /vol/waf-custom.conf)\" > /vol/waf-custom.conf";
+    console.log(cmd);
     util.cmd_exec(cmd);
     res.status(200).send(result);
     util.restart_apache();

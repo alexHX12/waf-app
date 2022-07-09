@@ -34,6 +34,10 @@ const rule = new Schema(
       type: String,
       required: true,
     },
+    severity:{
+      type: String,
+      required: true,
+    },
     action: {
       type: String,
       required: true,

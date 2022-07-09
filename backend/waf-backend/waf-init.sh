@@ -1,5 +1,6 @@
 cd /waf-backend
 npm install
+npm install pm2 -g
 
 #Controllo esistenza di una configurazione aggiornata
 if [ ! -e /vol/waf-custom.conf ]
@@ -32,5 +33,5 @@ grep -oP '(?<=Use VHostSSL ).*?(?=http)' /vol/waf-vhosts.conf | while read -r VH
     fi
 done
 
-npm start &
+pm2 start ./bin/www &
 apachectl -D FOREGROUND

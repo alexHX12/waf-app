@@ -47,10 +47,11 @@ module.exports = {
       const newRule = new Rule(req.body);
       const result = await newRule.save();
       id=newRule._id;
+      severity=newRule.severity;
       phase=newRule.phase;
       action=newRule.action;
       msg=newRule.desc;
-      var rule=req.body.text+" \"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"'\"\n";
+      var rule=req.body.text+" \"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"',severity:'"+severity+"'\"\n";
       if((req.isAdmin&&!req.adminMode)||((await Container.findOne({user_id:req.user.sub}))._id==req.params.containerId)){//Verifico proprieta' del container
         containerDomain=(await Container.findById(req.params.containerId)).domain;
         console.log(containerDomain);
@@ -71,7 +72,7 @@ module.exports = {
 
   deleteRule: async function(req, res, next){
     const result=await Rule.findByIdAndDelete(req.params.ruleId);
-    rule=result.text.replace(/\./g, "\\.").replace(/\"/g,"\\\"")+" \\\"id:"+result._id+",phase:"+result.phase+",t:none,t:lowercase,"+result.action+",status:403,log,"+"msg:'"+result.desc+"'\\\"";
+    rule=result.text.replace(/\./g, "\\.").replace("/","\\/").replace(/\"/g,"\\\"")+" \\\"id:"+result._id+",phase:"+result.phase+",t:none,t:lowercase,"+result.action+",status:403,log,"+"msg:'"+result.desc+"',severity:'"+result.severity+"'\\\"";
     if((req.isAdmin&&!req.adminMode)||(!req.isAdmin&&(await Container.findOne({user_id:req.user.sub}))._id==req.params.containerId)){//Verifico proprieta' del container
       containerDomain=(await Container.findById(req.params.containerId)).domain;
     }else if(!req.isAdmin){

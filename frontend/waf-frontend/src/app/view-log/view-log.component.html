@@ -8,7 +8,7 @@
                     <th scope="col">Socket container</th>
                     <th scope="col">Socket client</th>
                     <th scope="col">Data e ora</th>
-                    <th scope="col">Minaccia rilevata</th>
+                    <th scope="colgroup" colspan="2">Minaccia rilevata</th>
                     <th scope="col">Pattern rilevato</th>
                     <th scope="col">Richiesta</th>
                     <th scope="col">Gravità</th>
@@ -17,13 +17,14 @@
             <tbody>
                 <tr *ngFor="let log of logData;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{log.request.headers.Host+":"+log.transaction.local_port}}</td>
-                    <td>{{log.transaction.remote_address+":"+log.transaction.remote_port}}</td>
-                    <td>Data:{{log.transaction.time[0]}}<br>Ora:{{log.transaction.time[1]}}</td>
-                    <td><c-icon *ngIf="log.audit_data.messages['type']=='Warning'" name="cilWarning" size="xl"></c-icon>{{log.audit_data.messages['msg']}}</td>
-                    <td>{{log.audit_data.messages['matched_pattern']}}</td>
-                    <td>{{log.audit_data.messages['matched_data']}}</td>
-                    <td>{{log.audit_data.messages['severity']}}</td>
+                    <td>{{log['client_socket']}}</td>
+                    <td>{{log['container_socket']}}</td>
+                    <td>{{log['datetime']}}</td>
+                    <td><c-icon *ngIf="log['type']!='NOTICE'&&log['type']!='INFO'&&log['type']!='DEBUG'" name="cilWarning" size="xl"></c-icon></td>
+                    <td>{{log['threat']}}</td>
+                    <td>{{log['matched_pattern']}}</td>
+                    <td>{{log['matched_data']}}</td>
+                    <td>{{log['severity']}}</td>
                 </tr>
             </tbody>
         </table>

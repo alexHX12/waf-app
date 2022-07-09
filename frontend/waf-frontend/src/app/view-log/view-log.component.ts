@@ -20,13 +20,6 @@ export class ViewLogComponent implements OnInit {
   ngOnInit(): void {
     this.sdk.getLogs().subscribe(res=>{
       this.logData = res;
-      this.logData.forEach((el: any) => {
-        var datetime = Array(2);
-        var time = el.transaction.time;
-        datetime[0] = time.substring(0, time.indexOf(':'));
-        datetime[1] = time.substring(time.indexOf(':') + 1).split('.')[0]+" GMT+0";
-        el.transaction.time=datetime;
-      });
       this.logData=this.logData.filter((el:any)=>el.audit_data.messages!=undefined);//Non considero errori generici
     });
   }
