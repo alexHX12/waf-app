@@ -58,7 +58,7 @@ module.exports = {
                 }
             }
             res.contentType('application/json');
-            res.send(result);
+            res.send(res_data);
         }
     }
 }
