@@ -42,6 +42,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          docker buildx ls
           npm install -g @angular/cli@latest
           npm install
           ng build
