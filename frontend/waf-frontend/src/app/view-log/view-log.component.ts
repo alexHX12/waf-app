@@ -20,7 +20,6 @@ export class ViewLogComponent implements OnInit {
   ngOnInit(): void {
     this.sdk.getLogs().subscribe(res=>{
       this.logData = res;
-      this.logData=this.logData.filter((el:any)=>el.audit_data.messages!=undefined);//Non considero errori generici
     });
   }
 
