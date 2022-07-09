@@ -14,7 +14,6 @@ env:
   ECS_BACKEND_SERVICE: WafAppFrontendService
   ECS_TEST_APP_SERVICE: WafAppFrontendService
   ECS_CLUSTER: WafAppCluster
-  DOCKER_DEFAULT_PLATFORM: linux/arm64
 
 jobs:
   deploy:
@@ -46,7 +45,7 @@ jobs:
           npm install -g @angular/cli@latest
           npm install
           ng build
-          docker build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest ../
+          docker buildx build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest ../
           docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest"
 
@@ -58,7 +57,7 @@ jobs:
         run: |
           mv ./waf-httpd-vhosts.prod.conf ./waf-httpd-vhosts.conf
           mv ./waf-backend/.env.prod ./waf-backend/.env
-          docker build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest .
+          docker buildx build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest"
 
@@ -68,7 +67,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest .
+          docker buildx build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest"
 
