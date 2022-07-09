@@ -1,0 +1,66 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  AWS_REGION: eu-central-1                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_FRONTEND_REPOSITORY: waf-frontend           # set this to your Amazon ECR repository name
+  ECR_BACKEND_REPOSITORY: waf-backend
+  ECR_TEST_APP_REPOSITORY: waf-test-app
+  ECS_FRONTEND_SERVICE: WafAppFrontendService                 # set this to your Amazon ECS service name
+  ECS_BACKEND_SERVICE: WafAppFrontendService 
+  ECS_TEST_APP_SERVICE: WafAppFrontendService 
+  ECS_CLUSTER: WafAppCluster                 # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
+                                               # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
+                                               # containerDefinitions section of your task definition
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run:
+          #Frontend
+          docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG ./frontend
+          docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG"
+          #Backend
+          docker build -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG ./backend
+          docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG"
+          #Test app
+          docker build -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG ./test-app
+          docker push $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG"
+
+      - name: Reload tasks
+        id: reload-tasks
+        run:
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_FRONTEND_SERVICE --force-new-deployment
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_BACKEND_SERVICE --force-new-deployment
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_TEST_APP_SERVICE --force-new-deployment
