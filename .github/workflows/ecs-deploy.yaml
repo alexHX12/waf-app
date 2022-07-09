@@ -45,37 +45,35 @@ jobs:
           npm install -g @angular/cli@latest
           npm install
           ng build
-          docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG ../
-          docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest ../
+          docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest"
 
       - name: Deploy backend to ECR
         id: backend-deploy
         working-directory: ./backend
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           mv ./waf-httpd-vhosts.prod.conf ./waf-httpd-vhosts.conf
           mv ./waf-backend/.env.prod ./waf-backend/.env
-          docker build -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest"
 
       - name: Deploy test app to ECR
         id: test-app-deploy
         working-directory: ./test-app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest"
 
       - name: Reload tasks
         id: reload-tasks
-        run:
+        run: |
           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_FRONTEND_SERVICE --force-new-deployment
           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_BACKEND_SERVICE --force-new-deployment
           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_TEST_APP_SERVICE --force-new-deployment
