@@ -43,6 +43,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           npm install -g @angular/cli@latest
+          npm install
           ng build
           docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG ../
           docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:$IMAGE_TAG
