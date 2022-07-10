@@ -17,14 +17,14 @@
             <tbody>
                 <tr *ngFor="let log of logData;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{log['client_socket']}}</td>
-                    <td>{{log['container_socket']}}</td>
-                    <td>{{log['datetime']}}</td>
+                    <td><div>{{log['client_socket']}}</div></td>
+                    <td><div>{{log['container_socket']}}</div></td>
+                    <td><div>{{log['date']}}<br>{{log['time']}}</div></td>
                     <td><c-icon *ngIf="log['type']!='NOTICE'&&log['type']!='INFO'&&log['type']!='DEBUG'" name="cilWarning" size="xl"></c-icon></td>
-                    <td>{{log['threat']}}</td>
-                    <td>{{log['matched_pattern']}}</td>
-                    <td>{{log['matched_data']}}</td>
-                    <td>{{log['severity']}}</td>
+                    <td><div>{{log['threat']}}</div></td>
+                    <td><div>{{log['matched_pattern']}}</div></td>
+                    <td><div>{{log['matched_data']}}</div></td>
+                    <td><div>{{log['severity']}}</div></td>
                 </tr>
             </tbody>
         </table>

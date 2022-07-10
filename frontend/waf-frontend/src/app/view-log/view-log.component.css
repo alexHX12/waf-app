@@ -1,4 +1,4 @@
-td{
-  width: 20vw;
-  height: 5vw;
+td div{
+  inline-size: 9vw;
+  overflow-wrap: break-word;
 }
