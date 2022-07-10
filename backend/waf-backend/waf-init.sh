@@ -1,6 +1,7 @@
 cd /waf-backend
 npm install
 npm install pm2 -g
+chmod +x modsec_lexer.py
 
 #Controllo esistenza di una configurazione aggiornata
 if [ ! -e /vol/waf-custom.conf ]
