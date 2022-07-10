@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const autoIncrement = require('mongoose-auto-increment');
+const autoIncrement = require('mongoose-sequence')(mongoose);
 
 const rule = new Schema(
   {
-    // AUTO-GENERATED ID
+
+    _id: Number,
 
     container_id:{
       type: String,
@@ -44,14 +45,12 @@ const rule = new Schema(
     },
   },
   {
+    _id: false,
     collection: "rules",
   }
 );
 
-rule.plugin(autoIncrement.plugin, {
-  model: 'rules',
-  startAt: 1000000
-});
+rule.plugin(autoIncrement,{start_seq:1000000});
 
 const Rule = mongoose.model("Rule", rule);
 
