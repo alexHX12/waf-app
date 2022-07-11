@@ -6,12 +6,11 @@ const util = require('../../util/cmd');
 module.exports = {
   getContainers: async function (req, res, next) {
     var allContainers = await Container.find().lean();//Oggetto JS di base
-    const api_mngmnt_token = (await mngmnt_token).data.access_token;
     for (var i = 0; i < allContainers.length; i++) {
       var options2 = {
         method: "GET",
         url: process.env.domain+"api/v2/users/" + allContainers[i].user_id,
-        headers: { "authorization": "Bearer " + api_mngmnt_token },
+        headers: { "authorization": "Bearer " + mngmnt_token },
       };
       var res2 = await axios(options2);
       allContainers[i]['user_id'] = res2.data;

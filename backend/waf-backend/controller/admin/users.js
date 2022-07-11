@@ -1,10 +1,9 @@
 module.exports = {
     getUsers: async function (req, res, next) {
-        const api_mngmnt_token=(await mngmnt_token).data.access_token;
         const options2 = {
             method: "GET",
             url: process.env.domain+"api/v2/users",
-            headers: { "authorization": "Bearer " + api_mngmnt_token },
+            headers: { "authorization": "Bearer " + mngmnt_token },
         };
         axios(options2)
             .then(res2 => {
