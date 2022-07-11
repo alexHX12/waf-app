@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { getMngmntToken } = require("../../util/mngmnt");
 
 module.exports = {
     getUsers: async function (req, res, next) {
@@ -15,6 +16,9 @@ module.exports = {
             })
             .catch(err => {
                 console.log(err);
+                if(err.response.status==401){
+                    getMngmntToken();
+                }
             });
     }
 }

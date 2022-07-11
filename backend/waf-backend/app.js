@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
-const axios=require('axios');
+const { getMngmntToken } = require('./util/mngmnt');
 require('dotenv').config();
 const { dbConnection } = require("./dbConnection");
 
@@ -23,25 +23,12 @@ var jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
+getMngmntToken();
+
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/user');
-const { copyFile } = require('fs');
 
 var app = express();
-
-const options = {
-  method: 'POST',
-  url: process.env.domain+'oauth/token',
-  headers: { 'content-type': 'application/json' },
-  data: {
-        client_id: process.env.client_id,
-        client_secret: process.env.client_secret,
-        audience: process.env.domain+"api/v2/",
-        grant_type: "client_credentials"
-    }
-};
-
-global.mngmnt_token=axios(options);//Promise
 
 app.use(jwtCheck);
 app.use(logger('dev'));
