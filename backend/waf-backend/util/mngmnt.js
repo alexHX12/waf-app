@@ -14,7 +14,7 @@ module.exports = {
                 grant_type: "client_credentials"
             }
         };
-        schedule.scheduleJob('0 22 * * *',()=>{
+        schedule.scheduleJob('0 22 * * *', async ()=>{
             global.mngmnt_token = (await axios(options)).data.access_token;  
         });
     }

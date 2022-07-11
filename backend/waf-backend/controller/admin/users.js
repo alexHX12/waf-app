@@ -1,6 +1,3 @@
-const axios = require("axios");
-const { getMngmntToken } = require("../../util/mngmnt");
-
 module.exports = {
     getUsers: async function (req, res, next) {
         const api_mngmnt_token=(await mngmnt_token).data.access_token;
