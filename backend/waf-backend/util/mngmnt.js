@@ -1,4 +1,5 @@
 const axios=require('axios');
+const schedule=require('node-schedule');
 
 module.exports = {
     getMngmntToken: async function () {
@@ -13,6 +14,8 @@ module.exports = {
                 grant_type: "client_credentials"
             }
         };
-        global.mngmnt_token = (await axios(options)).data.access_token;
+        schedule.scheduleJob('0 22 * * *',()=>{
+            global.mngmnt_token = (await axios(options)).data.access_token;  
+        });
     }
 }
