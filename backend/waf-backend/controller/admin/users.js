@@ -1,3 +1,5 @@
+const axios=require('axios');
+
 module.exports = {
     getUsers: async function (req, res, next) {
         const options2 = {
