@@ -19,7 +19,8 @@ export class ViewLogComponent implements OnInit {
 
   ngOnInit(): void {
     this.sdk.getLogs().subscribe(res=>{
-      this.logData = res;
+      var tmp_array:any = res;
+      this.logData=tmp_array.reverse();
     });
   }
 
