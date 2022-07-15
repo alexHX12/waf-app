@@ -1,0 +1,51 @@
+nav {
+  background-color: gray;
+  padding: 1vw;
+}
+
+nav li {
+  display: inline;
+  background-color: darkblue;
+  padding: 1vw;
+  border: 1px solid black;
+}
+
+nav a {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+#post_wrapper {
+  width: 100%;
+  padding: 0.2vw;
+}
+
+.post {
+  background-color: white;
+  border: 1px solid black;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+
+.email {
+  font-size: 1vw;
+  color: gray;
+}
+
+#login_form {
+  margin-top: 2vw;
+  padding: 1vw;
+  border: 1px black solid;
+  width: fit-content;
+}
+
+#login_form button {
+  margin-left: 2.5vw;
+}

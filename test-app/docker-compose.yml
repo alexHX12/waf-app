@@ -1,0 +1,16 @@
+version: '3'
+services: 
+    test-app:
+        build:
+            context: ./app
+        ports: 
+            - 80:80
+    test-db:
+        build:
+            context: ./db
+        volumes:
+            - mysqldb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "test"
+volumes: 
+    mysqldb:

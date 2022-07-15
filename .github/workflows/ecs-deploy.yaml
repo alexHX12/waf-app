@@ -10,6 +10,7 @@ env:
   ECR_FRONTEND_REPOSITORY: waf-frontend
   ECR_BACKEND_REPOSITORY: waf-backend
   ECR_TEST_APP_REPOSITORY: waf-test-app
+  ECR_TEST_APP_DB_REPOSITORY: waf-test-app-db
   ECS_FRONTEND_SERVICE: WafAppFrontendService
   ECS_BACKEND_SERVICE: WafAppFrontendService
   ECS_TEST_APP_SERVICE: WafAppFrontendService
@@ -70,12 +71,21 @@ jobs:
 
       - name: Deploy test app to ECR
         id: test-app-deploy
-        working-directory: ./test-app
+        working-directory: ./test-app/app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           docker build --platform linux/arm64 -o type=registry -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest .
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest"
+      
+      - name: Deploy test app db to ECR
+        id: test-app-db-deploy
+        working-directory: ./test-app/db
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker build --platform linux/arm64 -o type=registry -t $ECR_REGISTRY/$ECR_TEST_APP_DB_REPOSITORY:latest .
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_DB_REPOSITORY:latest"
 
       - name: Reload tasks
         id: reload-tasks
