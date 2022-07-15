@@ -75,6 +75,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          mv ./blog/controller/dbConnection.prod.php ./blog/controller/dbConnection.php
           docker build --platform linux/arm64 -o type=registry -t $ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest .
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_TEST_APP_REPOSITORY:latest"
       
