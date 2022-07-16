@@ -22,7 +22,7 @@ module.exports = {
   addRule: async function (req, res, next) {
     req.body['user_id'] = req.user.sub;
     req.body['isGlobal'] = true;
-    var preflightRule = req.body.text + " \"id:100,phase:" + req.body.phase + ",t:none,t:lowercase," + req.body.action + ",status:403,log," + "msg:'" + req.body.desc + "',severity:'"+req.body.severity+"'\"\n";
+    var preflightRule = req.body.text.replace("\xc2\xa0", " ") + " \"id:100,phase:" + req.body.phase + ",t:none,t:lowercase," + req.body.action + ",status:403,log," + "msg:'" + req.body.desc + "',severity:'"+req.body.severity+"'\"\n";
     fs.writeFileSync("/tmp/rule_tmp", preflightRule);
     var isValidRule = true;
     try {
