@@ -17,8 +17,8 @@
             <tbody>
                 <tr *ngFor="let log of logData;let i=index">
                     <th scope="row">{{i+1}}</th>
-                    <td><div>{{log['client_socket']}}</div></td>
-                    <td><div>{{log['container_socket']}}</div></td>
+                    <td><div class="socket">{{log['client_socket']}}</div></td>
+                    <td><div class="socket">{{log['container_socket']}}</div></td>
                     <td><div>{{log['date']}}<br>{{log['time']}}</div></td>
                     <td><c-icon *ngIf="log['type']!='NOTICE'&&log['type']!='INFO'&&log['type']!='DEBUG'" name="cilWarning" size="xl"></c-icon></td>
                     <td><div>{{log['threat']}}</div></td>

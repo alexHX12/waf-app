@@ -2,3 +2,7 @@ td div{
   inline-size: 9vw;
   overflow-wrap: break-word;
 }
+
+.socket{
+  display: inline;
+}
