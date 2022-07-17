@@ -5,6 +5,7 @@ class Controller
 {
     public static function createView($name)
     {
+        require_once('./controller/dbConnection.php');
         Login::checkLogin();
         require_once("./views/navbar.php");
         if (!isset($_SESSION['email'])) {

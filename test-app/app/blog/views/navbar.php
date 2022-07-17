@@ -12,8 +12,6 @@
 
     <?php
 
-    require_once('./controller/dbConnection.php');
-
     $p_ris = DB::getConnection()->query("SELECT * FROM post");
 
     for ($i = 0; $i < $p_ris->num_rows; $i++) {
