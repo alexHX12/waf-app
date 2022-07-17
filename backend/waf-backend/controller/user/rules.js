@@ -31,7 +31,8 @@ module.exports = {
   addRule: async function (req, res, next) {
     req.body['user_id']=req.user.sub;
     req.body['isGlobal']=false;
-    var preflightRule=req.body.text.replace("\xc2\xa0", " ")+" \"id:100,phase:"+req.body.phase+",t:none,t:lowercase,"+req.body.action+",status:403,log,"+"msg:'"+req.body.desc+"',severity:'"+req.body.severity+"'\"\n";
+    req.body.text=req.body.text.replace(/\s/g,' ');
+    var preflightRule=req.body.text+" \"id:100,phase:"+req.body.phase+",t:none,t:lowercase,"+req.body.action+",status:403,log,"+"msg:'"+req.body.desc+"',severity:'"+req.body.severity+"'\"\n";
     fs.writeFileSync("/tmp/rule_tmp",preflightRule);
     var isValidRule=true;
     try {
@@ -51,7 +52,8 @@ module.exports = {
       phase=newRule.phase;
       action=newRule.action;
       msg=newRule.desc;
-      var rule=req.body.text+" \"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"',severity:'"+severity+"'\"\n";
+      text=newRule.text;
+      var rule=text+" \"id:"+id+",phase:"+phase+",t:none,t:lowercase,"+action+",status:403,log,"+"msg:'"+msg+"',severity:'"+severity+"'\"\n";
       if((req.isAdmin&&!req.adminMode)||((await Container.findOne({user_id:req.user.sub}))._id==req.params.containerId)){//Verifico proprieta' del container
         containerDomain=(await Container.findById(req.params.containerId)).domain;
         console.log(containerDomain);

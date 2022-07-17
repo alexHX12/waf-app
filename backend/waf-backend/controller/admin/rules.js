@@ -22,7 +22,8 @@ module.exports = {
   addRule: async function (req, res, next) {
     req.body['user_id'] = req.user.sub;
     req.body['isGlobal'] = true;
-    var preflightRule = req.body.text.replace("\xc2\xa0", " ") + " \"id:100,phase:" + req.body.phase + ",t:none,t:lowercase," + req.body.action + ",status:403,log," + "msg:'" + req.body.desc + "',severity:'"+req.body.severity+"'\"\n";
+    req.body.text=req.body.text.replace(/\s/g,' ');
+    var preflightRule = req.body.text + " \"id:100,phase:" + req.body.phase + ",t:none,t:lowercase," + req.body.action + ",status:403,log," + "msg:'" + req.body.desc + "',severity:'"+req.body.severity+"'\"\n";
     fs.writeFileSync("/tmp/rule_tmp", preflightRule);
     var isValidRule = true;
     try {
@@ -42,6 +43,7 @@ module.exports = {
       severity=newRule.severity;
       action = newRule.action;
       msg = newRule.desc;
+      text= newRule.text;
       var rule = req.body.text + " \"id:" + id + ",phase:" + phase + ",t:none,t:lowercase," + action + ",status:403,log," + "msg:'" + msg + "',severity:'"+severity+"'\"\n";
       fs.appendFileSync("/vol/waf-custom.conf", rule);
       res.contentType('application/json');
