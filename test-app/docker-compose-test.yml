@@ -1,0 +1,22 @@
+version: '3'
+services: 
+    test-app:
+        build:
+            context: ./app
+        networks:
+            default:
+            waf-network:
+                ipv4_address: 172.20.0.100
+    test-db:
+        build:
+            context: ./db
+        volumes:
+            - mysqldb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "test"
+volumes: 
+    mysqldb:
+networks:
+    waf-network:
+        name: "waf-network"
+        external: true
