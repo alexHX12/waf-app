@@ -3,8 +3,10 @@ services:
     test-app:
         build:
             context: ./app
-        ports: 
-            - 80:80
+        networks:
+            default:
+            waf-network:
+                ipv4_address: 172.20.0.100
     test-db:
         build:
             context: ./db
@@ -14,3 +16,7 @@ services:
             MYSQL_ROOT_PASSWORD: "test"
 volumes: 
     mysqldb:
+networks:
+    waf-network:
+        name: "waf-network"
+        external: true
